@@ -5,7 +5,6 @@ categories:
   - Jekyll
 last_modified_at: 2019-02-24T08:06:00-05:00
 ---
-# Decodable - 여러 타입을 가지는 키 만들기
 
 medium에 [[iOS] Codable을 이용하여 JSON decoding하기](https://medium.com/@adie0423/ios-codable%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-json-decoding%ED%95%98%EA%B8%B0-f2d4e4b932b7) 라는 포스팅을 작성한 적이 있었기 때문에 자신만만했지만 난관이 꽤 많았고 삽질이란 삽질은 다 했기 때문에 다시 정리하려고 한다.
 
