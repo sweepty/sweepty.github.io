@@ -2,7 +2,7 @@
 title:  "Markup으로 Quick Help 만들기"
 last_modified_at: 2019-03-06T08:06:00-05:00
 ---
-# Markup으로 Quick Help 만들기
+Quick Help를 작성해보자.
 
 CocoaPods을 만지고 있는 중인데 갑자기 `option + click` 을 하면 나오는 이것은 어떻게 하는 것인지 궁금해졌다.
 
@@ -144,9 +144,9 @@ public static func convertToLoop(value: BigUInt, unit: Unit = .icx) -> BigUInt {
 public static func convertToLoop(value: BigUInt, unit: Unit = .icx) -> BigUInt {
 }
 ```
-Space 3칸이다. 왜 애매하게 3칸일까? 왜 인지는 모르겠다.
+Space 3칸이다.
 
-2. 단락 구분은  ==blank line==로 한다.
+2. 단락 구분은  blank line으로 한다.
 
 ```swift
 /// Convert ICX or gLoop to loop. <- Summary
@@ -159,4 +159,4 @@ public static func convertToLoop(value: BigUInt, unit: Unit = .icx) -> BigUInt {
 }
 ```
 
-근데 *Summary* 다음 줄만 Blank line을 해줘도 별 문제 없는 것 같다. 혹시 별 문제가 있으면 댓글로 알려주시면 감사하겠습니다.
+혹시 틀린 점이 있으면 댓글로 알려주시면 감사하겠습니다.
