@@ -103,7 +103,7 @@ author:
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:adie0423@gmail.com"
     - label: "Medium"
-      icon: "fab fa-medium"
+      icon: "fab fa-fw fa-medium"
       url: "https://medium.com/@adie0423"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
