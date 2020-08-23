@@ -1,9 +1,9 @@
 ---
-layout: post
-title: Decodable - 여러 타입을 가지는 키 만들기
-summary: 한 개의 키가 여러 타입을 사용할 수 있도록 만드는 방법
-featured-img: emile-perron-190221
-commnets: true
+title:  "Decodable - 여러 타입을 가지는 키 만들기"
+search: true
+categories: 
+  - Jekyll
+last_modified_at: 2019-02-24T08:06:00-05:00
 ---
 # Decodable - 여러 타입을 가지는 키 만들기
 
