@@ -1,8 +1,7 @@
 ---
 title:  "Decodable - 여러 타입을 가지는 키 만들기"
-search: true
 categories: 
-  - Jekyll
+  - Swift
 last_modified_at: 2019-02-24T08:06:00-05:00
 ---
 
