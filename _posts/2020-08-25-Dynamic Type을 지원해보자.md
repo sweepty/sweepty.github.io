@@ -2,10 +2,9 @@
 title:  "Flutter에서도 Dynamic Type을 지원해보자!"
 last_modified_at: 2020-08-24T15:53:56-09:00
 ---
-
 Flutter에서 Dynamic Type(Large font)를 지원해본 후기
 
-### ❓Dynamic Type
+### Dynamic Type
 
 Dynamic Type이란 사용자가 선택한 글씨 크기에 따라 앱에서도 그 크기에 맞게 UI를 보여주는 것을 말한다.
 
@@ -15,11 +14,7 @@ Dynamic Type이란 사용자가 선택한 글씨 크기에 따라 앱에서도 �
 
 <img src="https://user-images.githubusercontent.com/29784606/90987396-c4b90800-e5c5-11ea-958e-4b22d1cd5141.PNG" alt="손쉬운 사용에서 더 큰 텍스트를 설정하는 스크린샷" style="zoom:40%;" />
 
-
-
-
-
-### 🤯 fixed size가 아니었다니!
+### fixed size가 아니었다니!
 
 사실 이 프로젝트에서 Dynamic Type을 지원할 예정은 없었다. 그런데 글자 크기를 크게하면 글자가 깨진다는 버그 리포트를 받았다. 당연히 폰트 사이즈를 지정해놓았기 때문에 고정된 값으로 보여질 것이라고 생각했는데 아니었던 것이다. 
 
@@ -36,7 +31,7 @@ Dynamic Type이란 사용자가 선택한 글씨 크기에 따라 앱에서도 �
 
 iOS(Swift)의 경우에는 Dynamic Type을 지원하는 것이 옵셔널이었지만 [Flutter 공식문서 - accessibility](https://flutter.dev/docs/development/accessibility-and-localization/accessibility#large-fonts)에 따르면 Flutter는 친절하게도 Large font를 기본으로 지원한다고한다. 따라서 Flutter로 개발하는 앱들은 모두 글자 크기가 커졌을 때의 상황도 고려하여 앱을 구현해야 할 것이다.
 
-### 🤓 그럼 본격적으로 Dynamic Type을 지원해보자!
+### 그럼 본격적으로 Dynamic Type을 지원해보자!
 
 사실 급한대로 그냥 textScaleFactor를 고정값으로 줘서 처리할까라는 생각도 해봤지만 이 프로젝트는 금융 앱 이자 제주도 코로나 방역 QR인증 앱 역할을 하고 있기 때문에 누구나 사용하는데 문제가 없어야한다는 생각이 더 컸다. 그래서 디자인 피드백을 받은 부분을 수정하는 김에 Dynamic Type 지원 작업을 같이 진행했다.  ~~그리고 사실 얼른 적용하고 싶은 마음이 굴뚝 같았음.~~ 
 
@@ -52,7 +47,7 @@ iOS(Swift)의 경우에는 Dynamic Type을 지원하는 것이 옵셔널이었�
 
 또 Alert에도 Dynamic Type을 지원하고 싶었는데 처리가 잘 안되어서 어떡하지라고 고민하고 있었는데 익명의 누군가님이 스크롤을 넣어야한다고 알려주신 덕분에 빠르게 해결할 수 있었다.
 
-결론 ScrollView 최고 👍
+결론 ScrollView 최고
 
   **3. Layout 구성이 올바르지 않았던 경우** 
 
@@ -68,7 +63,7 @@ iOS(Swift)의 경우에는 Dynamic Type을 지원하는 것이 옵셔널이었�
 
 아직 앱스토어에는 올라가지 않았고 아마 다음 배포에 포함이 되지 않을까 싶다. 얼른 배포하고 싶다!
 
-### 🤠 아직 갈 길이 멀었다
+### 아직 갈 길이 멀었다
 
 Dynamic Type에 대해서 더 알아보다가 WWDC 2020 세션 비디오를 발견했다.
 
