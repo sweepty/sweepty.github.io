@@ -59,7 +59,7 @@ iOS(Swift)의 경우에는 Dynamic Type을 지원하는 것이 옵셔널이었�
 
 <img src="https://user-images.githubusercontent.com/29784606/91065433-69d9ec00-e66b-11ea-9b50-bbd18f3ae538.PNG" alt="Support dynamic type - home" style="zoom:25%;" /> <img src="https://user-images.githubusercontent.com/29784606/91065405-5fb7ed80-e66b-11ea-9908-cef2902c7dc7.PNG" alt="Support dynamic type - tos" style="zoom:25%;" />
 
-<img src="https://user-images.githubusercontent.com/29784606/91065652-b9b8b300-e66b-11ea-8807-6dd60eab6a87.PNG" alt="Support dynamic type - jeju" style="zoom:25%;" /><img src="https://user-images.githubusercontent.com/29784606/91065660-bae9e000-e66b-11ea-9ae8-208834f75542.PNG" alt="Support dynamic type - settings" style="zoom:25%;" />
+<img src="https://user-images.githubusercontent.com/29784606/91065652-b9b8b300-e66b-11ea-8807-6dd60eab6a87.PNG" alt="Support dynamic type - jeju" style="zoom:25%;" /> <img src="https://user-images.githubusercontent.com/29784606/91065660-bae9e000-e66b-11ea-9ae8-208834f75542.PNG" alt="Support dynamic type - settings" style="zoom:25%;" />
 
 아직 앱스토어에는 올라가지 않았고 아마 다음 배포에 포함이 되지 않을까 싶다. 얼른 배포하고 싶다!
 
