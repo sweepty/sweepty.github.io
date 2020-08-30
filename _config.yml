@@ -94,7 +94,7 @@ analytics:
 # Site Author
 author:
   name             : "Seungyeon Lee"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/avatar.jpg"
   bio              : "iOS developer"
   location         : "Seoul, South Korea"
   email            :
