@@ -1,6 +1,6 @@
 ---
 title:  "What's on my desk"
-categories: 
+tags: 
   - keyboard
 last_modified_at: 2020-08-30T12:54:28-09:00
 ---

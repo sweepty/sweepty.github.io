@@ -1,5 +1,11 @@
 ---
 title:  "Flutter에서도 Dynamic Type을 지원해보자!"
+categories:
+  - Flutter
+tags:
+  - flutter
+  - accessibility
+  - dynamic type
 last_modified_at: 2020-08-24T15:53:56-09:00
 ---
 Flutter에서 Dynamic Type(Large font)를 지원해본 후기

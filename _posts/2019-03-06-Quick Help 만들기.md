@@ -1,5 +1,7 @@
 ---
 title:  "Markup으로 Quick Help 만들기"
+categories: 
+  - Swift
 last_modified_at: 2019-03-06T08:06:00-05:00
 ---
 Quick Help를 작성해보자.
