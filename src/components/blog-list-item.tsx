@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react"
-import { jsx, Link as TLink } from "theme-ui"
+import { jsx, Link as TLink, Heading } from "theme-ui"
 import { Box } from "@theme-ui/components"
 import { Link } from "gatsby"
 import ItemTags from "./item-tags"
@@ -22,12 +22,15 @@ type BlogListItemProps = {
 }
 
 const BlogListItem = ({ post, showTags = true }: BlogListItemProps) => (
+  
   <Box mb={4}>
     <TLink as={Link} to={post.slug} sx={{ fontSize: [1, 2, 3], color: `text` }}>
-      {post.title}
+    <Heading variant="styles.h4" color='text'>{post.title}</Heading>
     </TLink>
-    <p sx={{ color: `secondary`, mt: 1, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
+    <p sx={{ color: `secondary`, mt: 1, a: { color: `third` }}}>{post.description}</p>
+    <p sx={{ color: `secondary`, mt: 1, a: { color: `secondary` }}}>
       <time>{post.date}</time>
+      
       {post.tags && showTags && (
         <React.Fragment>
           {` — `}
