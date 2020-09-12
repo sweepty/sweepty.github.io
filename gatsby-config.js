@@ -14,6 +14,7 @@ module.exports = {
     social: {
         github: `https://github.com/sweepty`
     },
+    siteImage: '/android-chrome-192x192.png'
   },
   plugins: [
     {
