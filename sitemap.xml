@@ -4,9 +4,9 @@
 <url> <loc>https://sweepty.github.io/blog</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/whats-on-my-desk</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://sweepty.github.io/flutter에서도-접근성을-지원해보자</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://sweepty.github.io/markup으로-quick-help-만들기</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://sweepty.github.io/decodable-여러-타입을-가지는-키-만들기</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://sweepty.github.io/flutter-accessibility-dynamic-type</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://sweepty.github.io/quick-help</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://sweepty.github.io/decodable-multi-type-key</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/about</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags/accessibility</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags/flutter</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>

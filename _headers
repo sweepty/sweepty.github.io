@@ -71,7 +71,7 @@
   Link: </component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-post-query-tsx-71dddac596ee43b18818.js>; rel=preload; as=script
   Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
   Link: </page-data/whats-on-my-desk/page-data.json>; rel=preload; as=fetch; crossorigin
-/flutter에서도-접근성을-지원해보자
+/flutter-accessibility-dynamic-type
   Link: </webpack-runtime-99cb2d2357433aa23c72.js>; rel=preload; as=script
   Link: </framework-376edee25eb5f5cd8260.js>; rel=preload; as=script
   Link: </app-3863c8da8f8a39b55ba7.js>; rel=preload; as=script
@@ -79,8 +79,8 @@
   Link: </aed2e917f30c051bccba91aa15989a75fd0bd633-93c93c14625bcb1efc06.js>; rel=preload; as=script
   Link: </component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-post-query-tsx-71dddac596ee43b18818.js>; rel=preload; as=script
   Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
-  Link: </page-data/flutter에서도-접근성을-지원해보자/page-data.json>; rel=preload; as=fetch; crossorigin
-/markup으로-quick-help-만들기
+  Link: </page-data/flutter-accessibility-dynamic-type/page-data.json>; rel=preload; as=fetch; crossorigin
+/quick-help
   Link: </webpack-runtime-99cb2d2357433aa23c72.js>; rel=preload; as=script
   Link: </framework-376edee25eb5f5cd8260.js>; rel=preload; as=script
   Link: </app-3863c8da8f8a39b55ba7.js>; rel=preload; as=script
@@ -88,8 +88,8 @@
   Link: </aed2e917f30c051bccba91aa15989a75fd0bd633-93c93c14625bcb1efc06.js>; rel=preload; as=script
   Link: </component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-post-query-tsx-71dddac596ee43b18818.js>; rel=preload; as=script
   Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
-  Link: </page-data/markup으로-quick-help-만들기/page-data.json>; rel=preload; as=fetch; crossorigin
-/decodable-여러-타입을-가지는-키-만들기
+  Link: </page-data/quick-help/page-data.json>; rel=preload; as=fetch; crossorigin
+/decodable-multi-type-key
   Link: </webpack-runtime-99cb2d2357433aa23c72.js>; rel=preload; as=script
   Link: </framework-376edee25eb5f5cd8260.js>; rel=preload; as=script
   Link: </app-3863c8da8f8a39b55ba7.js>; rel=preload; as=script
@@ -97,7 +97,7 @@
   Link: </aed2e917f30c051bccba91aa15989a75fd0bd633-93c93c14625bcb1efc06.js>; rel=preload; as=script
   Link: </component---node-modules-lekoarts-gatsby-theme-minimal-blog-core-src-templates-post-query-tsx-71dddac596ee43b18818.js>; rel=preload; as=script
   Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
-  Link: </page-data/decodable-여러-타입을-가지는-키-만들기/page-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/decodable-multi-type-key/page-data.json>; rel=preload; as=fetch; crossorigin
 /about
   Link: </webpack-runtime-99cb2d2357433aa23c72.js>; rel=preload; as=script
   Link: </framework-376edee25eb5f5cd8260.js>; rel=preload; as=script
