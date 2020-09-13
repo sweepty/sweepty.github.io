@@ -12,11 +12,11 @@ description: Fastlane을 Flutter에서도 완벽하게 적용해보자
 
 ### 🤔 Flutter에서 iOS 앱을 TestFlight에 배포하려면?
 
-1. `$ flutter build ios` 로 릴리즈 빌드를 생성한다.
-2. version과 build number를 올린다.
+1. `$ flutter build ios` 로 릴리즈 빌드 생성. (기다림 필요...)
+2. version과 build number를 올림.
 3. Xcode에서 Archive. (기다림 필요...)
 4. AppStore Connect에 Distribute. (기다림 필요...)
-5. TestFlight에 빌드가 올라가면 슬랙으로 공유한다.
+5. TestFlight에 빌드가 올라가면 슬랙으로 공유.
 
 **기존 배포 방식은 오래 기다려야하고 너무 귀찮다!!** 😫
 
@@ -69,9 +69,9 @@ ENV="Testbed"
 MAIN_TARGET="lib/main_testbed.dart"
 ```
 
-> 환경 변수를 불러오려면 `ENV["변수명"]` 으로 불러오면 된다.
->
-> ex)  `ENV["ENV_EMOJI"]` ,  `ENV["MAIN_TARGET"]` 
+환경 변수를 불러오려면 `ENV["변수명"]` 으로 불러오면 된다.
+
+ex)  `ENV["ENV_EMOJI"]` ,  `ENV["MAIN_TARGET"]` 
 
 
 아래는 환경변수에 맞게 TestFlight 배포를 하는 `beta` lane이다.
@@ -132,7 +132,7 @@ $ fastlane beta --env testbed
 라고 생각했지만.. 
 우리는 Flutter를 사용하고 있기 때문에 릴리즈 빌드 생성 단계까지 포함해서 아래와 같은 커맨드 라인을 실행해야했다.
 
-1. `$ flutter build ios -t lib/main_live.dart`  로 릴리즈 빌드 생성
+1. `$ flutter build ios`  로 릴리즈 빌드 생성
 2. `$ cd ios`
 3. `$ fastlane beta --live`
 
@@ -266,7 +266,7 @@ $ fastlane beta --env testbed
 ```
 
 
-testbed인 경우에는 [badge](https://docs.fastlane.tools/actions/badge/)로 
+그리고 testbed인 경우에는 [badge](https://docs.fastlane.tools/actions/badge/)로 
 앱 아이콘에 alpha 뱃지를 달아주도록했다.
 
 ### 🥳 Fastlane으로 배포 성공!
