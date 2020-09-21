@@ -111,7 +111,7 @@ desc "Push a new beta build to TestFlight"
       payload: {
         "Version" => :version,
         "Build" => build_number,
-        "Environment" => ENV[ENV_EMOJI]+ " "+ ENV['ENV']
+        "Environment" => "#{ENV['ENV_EMOJI']} #{ENV['ENV']}"
       },
     )
   end
@@ -138,7 +138,7 @@ $ fastlane beta --env testbed
 
 이러면 자동화를 한 의미가 무색해지기 때문에 이 부분도 fastlane 실행 시에 포함하기로 했다.
 
-FastFile에서 [sh](https://docs.fastlane.tools/actions/sh/)를 사용하면 shell command를 실행할 수 있다.
+FastFile에서 [sh](https://docs.fastlane.tools/actions/sh/)를 사용하면 터미널 명령어를 실행할 수 있다.
 
 아래는 flutter build ios를 실행하는 lane이다. 
 
@@ -224,7 +224,7 @@ platform :ios do
       payload: {
         "Version" => :version,
         "Build" => build_number,
-        "Environment" => ENV[ENV_EMOJI]+ " "+ ENV['ENV']
+        "Environment" => "#{ENV['ENV_EMOJI']} #{ENV['ENV']}"
       },
     )
   end
@@ -266,13 +266,14 @@ $ fastlane beta --env testbed
 ```
 
 
-그리고 testbed인 경우에는 [badge](https://docs.fastlane.tools/actions/badge/)로 
-앱 아이콘에 alpha 뱃지를 달아주도록했다.
-
 ### 🥳 Fastlane으로 배포 성공!
 ![succes slack message](./deploy-success-slack-message.png)
 
 TestFlight에 배포가 되면 이렇게 슬랙 메세지가 날아온다! 
+
+![app icon with badge](./zzeung-app-icon-with-badge.png)
+그리고 testbed인 경우에는 [badge](https://docs.fastlane.tools/actions/badge/)로 
+앱 아이콘에 alpha 뱃지를 달아주도록했다.
 
 그동안 개발 운영 환경에 따른 다중 빌드와 flutter build에 고통받았었는데 광명을 찾을 수 있었다. 
 Fastlane은 알면 알수록 재밌고 신기하고 좋은 기능도 많다. 
