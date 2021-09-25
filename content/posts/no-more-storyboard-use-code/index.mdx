@@ -24,12 +24,12 @@ ViewController를 보여주고 싶을 때
 ```swift
 guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let homeViewController = ViewController()
-        
-        let win = UIWindow(windowScene: windowScene)
-        win.rootViewController = homeViewController
-        win.makeKeyAndVisible()
-        self.window = win
+let homeViewController = ViewController()
+
+let win = UIWindow(windowScene: windowScene)
+win.rootViewController = homeViewController
+win.makeKeyAndVisible()
+self.window = win
 ```
 
 TabBarController를 보여주고 싶을 때
