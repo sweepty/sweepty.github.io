@@ -18,9 +18,7 @@ Crashlytics에서 assertFailure가 발생해서 앱이 크래쉬나고 있다는
 ### assert가 뭔가요?
 assert는 디버깅을 할 때 오류가 생기면 안되는 곳에 작성하여 디버깅을 쉽게 하기 위한 함수입니다.
 
-(Optimization 설정을 건드리지 않았다는 전제 하에)디버그 모드에서는 `assert`에 조건을 만족하지 못하는 값이 들어오면 메세지를 출력한 후 프로그램이 중단되고 디버그 가능한 상태로 전환됩니다.
-
-다음은 아주 간단하게 assert를 사용하는 예시입니다.
+다음은 간단하게 assert를 사용하는 예시입니다.
 ```swift
 let name: String? = "sally"
 assert(name != nil, "이름은 nil일 수 없습니다!")
