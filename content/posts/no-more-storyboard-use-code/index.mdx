@@ -17,9 +17,8 @@ Main.storyboard는 이제 사용하지 않으니 삭제하세요.
 Application Scene Manifest 하위 항목을 보시면 `Storybard Name` 이 있습니다. 이 부분을 ⛔️ 버튼을 눌러서 삭제하세요.
 ![delete storyboard name](./delete-storyboard-name.png)
 
-#### sceneDelegate.swift 파일 수정
-`sceneDelegate.swift` 파일에서 `func scene()` 메서드 내에 rootViewController를 설정해줍니다.
-ViewController를 보여주고 싶을 때
+#### SceneDelegate.swift 파일 수정
+`SceneDelegate.swift` 파일에서 `func scene()` 메서드 내에 rootViewController를 설정해줍니다.
 
 ```swift
 guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -33,6 +32,7 @@ self.window = win
 ```
 
 TabBarController를 보여주고 싶을 때
+
 ```swift
 guard let windowScene = (scene as? UIWindowScene) else { return }
         

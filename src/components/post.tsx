@@ -46,20 +46,20 @@ const Post = ({ data: { post } }: PostProps) => (
     <Heading variant="styles.h2">{post.title}</Heading>
     <p sx={{ color: `secondary`, mt: 3, a: { color: `secondary` }, fontSize: [1, 1, 2] }}>
       <time>{post.date}</time>
-      {post.tags && (
+      {/* {post.tags && (
         <React.Fragment>
           {` — `}
           <ItemTags tags={post.tags} />
         </React.Fragment>
-      )}
-      {/* {post.timeToRead && ` — `}
-      {post.timeToRead && <span>{post.timeToRead} min read</span>} */}
+      )} */}
+      {post.timeToRead && ` — `}
+      {post.timeToRead && <span>{post.timeToRead} min read</span>}
     </p>
     <section
       sx={{
         my: 5,
         ".gatsby-resp-image-wrapper": { 
-          
+
         },
         variant: `layout.content`,
       }}
