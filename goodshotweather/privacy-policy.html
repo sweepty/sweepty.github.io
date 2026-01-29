@@ -4,70 +4,211 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>개인정보 처리방침 - 굿샷날씨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.7;
-      color: #333;
-      background: #fff;
-      padding: 24px;
-      max-width: 600px;
-      margin: 0 auto;
+    :root {
+      --primary: #1B5E20;
+      --primary-light: #4CAF50;
+      --text: #1a1a1a;
+      --text-secondary: #666;
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.8;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+
+    .back-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Content */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #eee;
+    }
+
     h1 {
-      font-size: 24px;
-      font-weight: 600;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
       margin-bottom: 8px;
     }
+
     .date {
-      color: #666;
+      color: var(--text-secondary);
       font-size: 14px;
-      margin-bottom: 24px;
     }
-    p { margin-bottom: 16px; }
+
+    .intro {
+      background: #E8F5E9;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      color: var(--primary);
+      line-height: 1.7;
+    }
+
     h2 {
       font-size: 18px;
       font-weight: 600;
-      margin: 24px 0 12px;
+      color: var(--text);
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+
+    h2::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+    }
+
     ul {
-      margin: 8px 0 16px 20px;
+      margin: 12px 0 20px 24px;
+      color: var(--text-secondary);
     }
-    li { margin-bottom: 4px; }
-    a { color: #007AFF; }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-box {
+      background: var(--card-bg);
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .contact-box p {
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .contact-box a {
+      font-size: 18px;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
-  <h1>굿샷날씨 개인정보 처리방침</h1>
-  <p class="date">최종 수정일: 2026년 1월 27일</p>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        굿샷날씨
+      </a>
+    </div>
+  </header>
 
-  <p>굿샷날씨(이하 "앱")는 사용자의 개인정보를 직접 수집하지 않습니다. 회원가입, 로그인이 없으며, 이름, 이메일, 위치 정보 등 개인을 식별할 수 있는 정보를 요구하거나 저장하지 않습니다.</p>
+  <main class="content">
+    <div class="page-header">
+      <h1>개인정보 처리방침</h1>
+      <p class="date">최종 수정일: 2026년 1월 27일</p>
+    </div>
 
-  <h2>1. 기기 내 저장 데이터</h2>
-  <p>앱은 서비스 제공을 위해 다음 데이터를 사용자의 기기에만 저장합니다. 이 데이터는 외부 서버로 전송되지 않습니다.</p>
-  <ul>
-    <li>선택한 골프장 정보</li>
-    <li>즐겨찾기한 골프장 목록</li>
-  </ul>
-  <p>앱을 삭제하면 기기에 저장된 모든 데이터가 함께 삭제됩니다.</p>
+    <div class="intro">
+      굿샷날씨는 사용자의 개인정보를 직접 수집하지 않습니다. 회원가입, 로그인이 없으며, 이름, 이메일, 위치 정보 등 개인을 식별할 수 있는 정보를 요구하거나 저장하지 않습니다.
+    </div>
 
-  <h2>2. 제3자 서비스</h2>
-  <p>앱은 다음의 제3자 서비스를 이용하며, 해당 서비스가 자체적으로 데이터를 수집할 수 있습니다. 자세한 사항은 각 서비스의 개인정보 처리방침을 참고해주세요.</p>
-  <ul>
-    <li>Google AdMob (광고): 광고 제공을 위해 익명화된 기기 정보를 수집할 수 있습니다. <a href="https://policies.google.com/privacy">개인정보처리방침</a></li>
-    <li>공공데이터포털 (기상청): 날씨 예보 정보를 제공받습니다.</li>
-    <li>국가교통정보센터 (ITS): 도로 CCTV 정보를 제공받습니다.</li>
-  </ul>
+    <h2>1. 기기 내 저장 데이터</h2>
+    <p>앱은 서비스 제공을 위해 다음 데이터를 사용자의 기기에만 저장합니다. 이 데이터는 외부 서버로 전송되지 않습니다.</p>
+    <ul>
+      <li>선택한 골프장 정보</li>
+      <li>즐겨찾기한 골프장 목록</li>
+    </ul>
+    <p>앱을 삭제하면 기기에 저장된 모든 데이터가 함께 삭제됩니다.</p>
 
-  <h2>3. 아동의 개인정보</h2>
-  <p>본 앱은 만 14세 미만 아동의 개인정보를 의도적으로 수집하지 않습니다.</p>
+    <h2>2. 제3자 서비스</h2>
+    <p>앱은 다음의 제3자 서비스를 이용하며, 해당 서비스가 자체적으로 데이터를 수집할 수 있습니다. 자세한 사항은 각 서비스의 개인정보 처리방침을 참고해주세요.</p>
+    <ul>
+      <li><strong>Google AdMob (광고)</strong>: 광고 제공을 위해 익명화된 기기 정보를 수집할 수 있습니다. <a href="https://policies.google.com/privacy" target="_blank">개인정보처리방침</a></li>
+      <li><strong>공공데이터포털 (기상청)</strong>: 날씨 예보 정보를 제공받습니다.</li>
+      <li><strong>국가교통정보센터 (ITS)</strong>: 도로 CCTV 정보를 제공받습니다.</li>
+    </ul>
 
-  <h2>4. 개인정보 처리방침 변경</h2>
-  <p>본 방침이 변경되는 경우 앱 업데이트를 통해 안내합니다.</p>
+    <h2>3. 아동의 개인정보</h2>
+    <p>본 앱은 만 14세 미만 아동의 개인정보를 의도적으로 수집하지 않습니다.</p>
 
-  <h2>5. 문의</h2>
-  <p>개인정보 처리에 관한 문의사항은 아래로 연락해주세요.</p>
-  <p><a href="mailto:goodshotweather@gmail.com">goodshotweather@gmail.com</a></p>
+    <h2>4. 개인정보 처리방침 변경</h2>
+    <p>본 방침이 변경되는 경우 앱 업데이트를 통해 안내합니다.</p>
+
+    <h2>5. 문의</h2>
+    <div class="contact-box">
+      <p>개인정보 처리에 관한 문의사항은 아래로 연락해주세요.</p>
+      <a href="mailto:goodshotweather@gmail.com">goodshotweather@gmail.com</a>
+    </div>
+  </main>
 </body>
 </html>

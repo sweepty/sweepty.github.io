@@ -4,77 +4,223 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>이용약관 - 굿샷날씨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.7;
-      color: #333;
-      background: #fff;
-      padding: 24px;
-      max-width: 600px;
-      margin: 0 auto;
+    :root {
+      --primary: #1B5E20;
+      --primary-light: #4CAF50;
+      --text: #1a1a1a;
+      --text-secondary: #666;
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.8;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+    }
+
+    .back-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Content */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #eee;
+    }
+
     h1 {
-      font-size: 24px;
-      font-weight: 600;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
       margin-bottom: 8px;
     }
+
     .date {
-      color: #666;
+      color: var(--text-secondary);
       font-size: 14px;
-      margin-bottom: 24px;
     }
-    p { margin-bottom: 16px; }
+
     h2 {
       font-size: 18px;
       font-weight: 600;
-      margin: 24px 0 12px;
+      color: var(--text);
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+
+    h2::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+    }
+
     ul, ol {
-      margin: 8px 0 16px 20px;
+      margin: 12px 0 20px 24px;
+      color: var(--text-secondary);
     }
-    li { margin-bottom: 4px; }
-    a { color: #007AFF; }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .highlight-box {
+      background: #FFF8E1;
+      border-left: 4px solid #FFB300;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      color: #5D4037;
+    }
+
+    .contact-box {
+      background: var(--card-bg);
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .contact-box p {
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .contact-box a {
+      font-size: 18px;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
-  <h1>굿샷날씨 이용약관</h1>
-  <p class="date">최종 수정일: 2026년 1월 27일</p>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        굿샷날씨
+      </a>
+    </div>
+  </header>
 
-  <h2>제1조 (목적)</h2>
-  <p>본 약관은 굿샷날씨(이하 "앱")의 이용 조건을 규정합니다.</p>
+  <main class="content">
+    <div class="page-header">
+      <h1>이용약관</h1>
+      <p class="date">최종 수정일: 2026년 1월 27일</p>
+    </div>
 
-  <h2>제2조 (서비스 내용)</h2>
-  <p>앱은 다음 서비스를 제공합니다.</p>
-  <ul>
-    <li>골프장 날씨 예보 (시간별, 일별)</li>
-    <li>골프장 즐겨찾기</li>
-    <li>골프장 주변 도로 CCTV 조회</li>
-  </ul>
+    <h2>제1조 (목적)</h2>
+    <p>본 약관은 굿샷날씨(이하 "앱")의 이용 조건을 규정합니다.</p>
 
-  <h2>제3조 (이용 요금)</h2>
-  <ol>
-    <li>앱은 무료로 제공됩니다.</li>
-    <li>앱 내 광고가 표시될 수 있습니다.</li>
-  </ol>
+    <h2>제2조 (서비스 내용)</h2>
+    <p>앱은 다음 서비스를 제공합니다.</p>
+    <ul>
+      <li>골프장 날씨 예보 (시간별, 일별)</li>
+      <li>골프장 즐겨찾기</li>
+      <li>골프장 주변 도로 CCTV 조회</li>
+      <li>홈 화면 위젯</li>
+    </ul>
 
-  <h2>제4조 (면책)</h2>
-  <ol>
-    <li>날씨 정보는 기상청 공공데이터를 기반으로 하며, 정확성을 보장하지 않습니다.</li>
-    <li>날씨 정보에 근거한 판단으로 발생한 손해에 대해 책임지지 않습니다.</li>
-    <li>서비스 점검, 장애 등으로 일시적으로 중단될 수 있습니다.</li>
-    <li>CCTV 정보는 국가교통정보센터에서 제공받으며, 실시간 영상의 가용성을 보장하지 않습니다.</li>
-  </ol>
+    <h2>제3조 (이용 요금)</h2>
+    <ol>
+      <li>앱은 무료로 제공됩니다.</li>
+      <li>앱 내 광고가 표시될 수 있습니다.</li>
+    </ol>
 
-  <h2>제5조 (지적재산권)</h2>
-  <p>앱의 디자인, 코드, 콘텐츠에 대한 지적재산권은 개발자에게 있습니다.</p>
+    <h2>제4조 (면책)</h2>
+    <div class="highlight-box">
+      <p>날씨 정보는 참고용이며, 중요한 결정에는 기상청 공식 발표를 확인해주세요.</p>
+    </div>
+    <ol>
+      <li>날씨 정보는 기상청 공공데이터를 기반으로 하며, 정확성을 보장하지 않습니다.</li>
+      <li>날씨 정보에 근거한 판단으로 발생한 손해에 대해 책임지지 않습니다.</li>
+      <li>서비스 점검, 장애 등으로 일시적으로 중단될 수 있습니다.</li>
+      <li>CCTV 정보는 국가교통정보센터에서 제공받으며, 실시간 영상의 가용성을 보장하지 않습니다.</li>
+    </ol>
 
-  <h2>제6조 (약관 변경)</h2>
-  <p>본 약관이 변경되는 경우 앱 업데이트를 통해 안내합니다.</p>
+    <h2>제5조 (지적재산권)</h2>
+    <p>앱의 디자인, 코드, 콘텐츠에 대한 지적재산권은 개발자에게 있습니다.</p>
 
-  <h2>제7조 (문의)</h2>
-  <p>서비스 이용에 관한 문의사항은 아래로 연락해주세요.</p>
-  <p><a href="mailto:goodshotweather@gmail.com">goodshotweather@gmail.com</a></p>
+    <h2>제6조 (약관 변경)</h2>
+    <p>본 약관이 변경되는 경우 앱 업데이트를 통해 안내합니다.</p>
+
+    <h2>제7조 (문의)</h2>
+    <div class="contact-box">
+      <p>서비스 이용에 관한 문의사항은 아래로 연락해주세요.</p>
+      <a href="mailto:goodshotweather@gmail.com">goodshotweather@gmail.com</a>
+    </div>
+  </main>
 </body>
 </html>

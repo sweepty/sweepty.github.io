@@ -3,138 +3,454 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>굿샷날씨</title>
+  <title>굿샷날씨 - 골퍼를 위한 날씨 앱</title>
+  <meta name="description" content="골프장 날씨를 한눈에. 시간별 예보, 도로 CCTV, 홈 위젯까지.">
+  <meta property="og:title" content="굿샷날씨">
+  <meta property="og:description" content="골퍼를 위한 날씨 앱">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: linear-gradient(135deg, #1a5f2a 0%, #2d8a3e 100%);
-      min-height: 100vh;
-      padding: 40px 24px;
+    :root {
+      --primary: #1B5E20;
+      --primary-light: #4CAF50;
+      --primary-dark: #0D3B0F;
+      --accent: #FFD54F;
+      --text: #1a1a1a;
+      --text-secondary: #666;
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
     }
-    .container {
-      max-width: 500px;
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 24px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .app-icon {
+      width: 120px;
+      height: 120px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      font-size: 56px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 8vw, 56px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero .tagline {
+      font-size: clamp(18px, 4vw, 24px);
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .hero .subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 40px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #000;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+    }
+
+    .download-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* Features Section */
+    .features {
+      padding: 100px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Highlights Section */
+    .highlights {
+      background: linear-gradient(180deg, #E8F5E9 0%, var(--bg) 100%);
+      padding: 100px 24px;
+    }
+
+    .highlights-content {
+      max-width: 800px;
       margin: 0 auto;
       text-align: center;
     }
-    .icon {
-      width: 100px;
-      height: 100px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 48px;
-    }
-    h1 {
-      font-size: 32px;
-      font-weight: 700;
+
+    .highlight-badge {
+      display: inline-block;
+      background: var(--primary);
       color: #fff;
-      margin-bottom: 8px;
-    }
-    .tagline {
-      font-size: 16px;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 48px;
-    }
-    .features {
-      background: rgba(255,255,255,0.95);
-      border-radius: 20px;
-      padding: 32px 24px;
-      text-align: left;
-    }
-    .feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
       margin-bottom: 24px;
     }
-    .feature:last-child {
-      margin-bottom: 0;
+
+    .highlights h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.4;
     }
-    .feature-icon {
-      width: 44px;
-      height: 44px;
-      background: #e8f5e9;
-      border-radius: 12px;
+
+    .highlights p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .data-sources {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
+      gap: 16px;
     }
-    .feature-content h3 {
+
+    .data-source {
+      background: var(--card-bg);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .data-source strong {
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.8);
+      padding: 60px 24px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-section h4 {
+      color: #fff;
       font-size: 16px;
       font-weight: 600;
-      color: #1a5f2a;
-      margin-bottom: 4px;
+      margin-bottom: 16px;
     }
-    .feature-content p {
-      font-size: 14px;
-      color: #666;
-    }
-    .credits {
-      margin-top: 32px;
-      padding: 16px;
-      background: rgba(0,0,0,0.1);
-      border-radius: 12px;
-      font-size: 12px;
+
+    .footer-section a {
+      display: block;
       color: rgba(255,255,255,0.7);
-      line-height: 1.8;
+      text-decoration: none;
+      font-size: 15px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
     }
-    .credits a {
-      color: rgba(255,255,255,0.9);
+
+    .footer-section a:hover {
+      color: #fff;
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        min-height: auto;
+        padding: 80px 0;
+      }
+
+      .features {
+        padding: 60px 24px;
+      }
+
+      .highlights {
+        padding: 60px 24px;
+      }
+
+      .section-title {
+        margin-bottom: 40px;
+      }
+
+      .footer-content {
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="icon">⛳</div>
-    <h1>굿샷날씨</h1>
-    <p class="tagline">골퍼를 위한 날씨 앱</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="app-icon">&#9971;</div>
+      <h1>굿샷날씨</h1>
+      <p class="tagline">골퍼를 위한 날씨 앱</p>
+      <p class="subtitle">라운드 전, 골프장 날씨부터 도로 상황까지 한 번에 확인하세요</p>
+      <a href="#" class="download-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+        </svg>
+        App Store에서 다운로드
+      </a>
+    </div>
+    <div class="scroll-indicator">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
 
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">🌤️</div>
-        <div class="feature-content">
-          <h3>골프장 날씨 예보</h3>
-          <p>시간별, 일별 날씨를 한눈에 확인하세요</p>
-        </div>
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="section-title">
+      <h2>핵심 기능</h2>
+      <p>라운드에 필요한 모든 정보를 담았습니다</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#127780;</div>
+        <h3>실시간 골프장 날씨</h3>
+        <p>선택한 골프장의 현재 날씨와 시간별 예보를 확인하세요. 기온, 습도, 바람, 강수확률까지 한눈에.</p>
       </div>
-
-      <div class="feature">
-        <div class="feature-icon">⭐</div>
-        <div class="feature-content">
-          <h3>즐겨찾기</h3>
-          <p>자주 가는 골프장을 저장하고 빠르게 확인하세요</p>
-        </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128197;</div>
+        <h3>일별 예보</h3>
+        <p>최대 7일간의 날씨 예보로 라운드 일정을 계획하세요. 최고·최저 기온과 강수 확률을 제공합니다.</p>
       </div>
-
-      <div class="feature">
-        <div class="feature-icon">📹</div>
-        <div class="feature-content">
-          <h3>도로 CCTV</h3>
-          <p>골프장 주변 도로 상황을 실시간으로 확인하세요</p>
-        </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#11088;</div>
+        <h3>즐겨찾기</h3>
+        <p>자주 가는 골프장을 즐겨찾기에 추가하고 빠르게 날씨를 확인하세요.</p>
       </div>
-
-      <div class="feature">
-        <div class="feature-icon">📱</div>
-        <div class="feature-content">
-          <h3>홈 화면 위젯</h3>
-          <p>앱을 열지 않아도 날씨를 확인할 수 있어요</p>
-        </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128249;</div>
+        <h3>도로 CCTV</h3>
+        <p>골프장 주변 도로의 실시간 CCTV 영상으로 교통 상황을 미리 파악하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127749;</div>
+        <h3>일출·일몰 정보</h3>
+        <p>골프장 위치 기준 정확한 일출·일몰 시간으로 티오프 시간 계획에 참고하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128241;</div>
+        <h3>홈 화면 위젯</h3>
+        <p>앱을 열지 않아도 홈 화면에서 바로 날씨를 확인할 수 있어요.</p>
       </div>
     </div>
+  </section>
 
-    <div class="credits">
-      본 앱은 <a href="https://data.go.kr" target="_blank">공공데이터포털</a>의 데이터를 활용합니다.<br>
-      날씨 정보: 기상청 | CCTV 정보: 국토교통부 ITS 국가교통정보센터
+  <!-- Highlights -->
+  <section class="highlights">
+    <div class="highlights-content">
+      <span class="highlight-badge">&#127948; 골퍼가 만든 앱</span>
+      <h2>라운드 준비, 이제 더 스마트하게</h2>
+      <p>
+        직접 필드에서 느꼈던 불편함을 해결하기 위해 만들었습니다.<br>
+        기상청 공공데이터를 활용해 정확한 날씨 정보를 제공하고,<br>
+        국토교통부 CCTV로 출발 전 도로 상황까지 확인할 수 있어요.
+      </p>
+      <div class="data-sources">
+        <div class="data-source"><strong>기상청</strong> 단기예보</div>
+        <div class="data-source"><strong>기상청</strong> 중기예보</div>
+        <div class="data-source"><strong>국토교통부</strong> 도로 CCTV</div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>굿샷날씨</h4>
+        <p>골퍼를 위한 날씨 앱.<br>언제나 좋은 라운드 되세요!</p>
+      </div>
+      <div class="footer-section">
+        <h4>법적 고지</h4>
+        <a href="privacy-policy.html">개인정보 처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+      <div class="footer-section">
+        <h4>문의</h4>
+        <a href="mailto:goodshotweather@gmail.com">goodshotweather@gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 굿샷날씨. 공공데이터포털의 데이터를 활용합니다.
+    </div>
+  </footer>
 </body>
 </html>
