@@ -3,170 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>굿샷날씨 - 골프장 날씨 앱</title>
+  <title>굿샷날씨</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: #333;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #1a5f2a 0%, #2d8a3e 100%);
       min-height: 100vh;
-      padding: 20px;
+      padding: 40px 24px;
     }
     .container {
-      max-width: 600px;
+      max-width: 500px;
       margin: 0 auto;
       text-align: center;
-      padding-top: 60px;
     }
-    .app-icon {
-      width: 120px;
-      height: 120px;
-      background: #fff;
-      border-radius: 28px;
-      margin: 0 auto 24px;
+    .icon {
+      width: 100px;
+      height: 100px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 60px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      margin: 0 auto 24px;
+      font-size: 48px;
     }
     h1 {
+      font-size: 32px;
+      font-weight: 700;
       color: #fff;
-      font-size: 36px;
-      margin-bottom: 12px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 8px;
     }
     .tagline {
-      color: rgba(255,255,255,0.9);
-      font-size: 18px;
-      margin-bottom: 40px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 48px;
     }
     .features {
-      background: #fff;
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 24px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 32px 24px;
       text-align: left;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-    .features h2 {
-      font-size: 20px;
-      margin-bottom: 20px;
-      color: #1a1a1a;
-    }
-    .feature-item {
+    .feature {
       display: flex;
-      align-items: center;
-      margin-bottom: 16px;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
     }
-    .feature-item:last-child {
+    .feature:last-child {
       margin-bottom: 0;
     }
     .feature-icon {
-      width: 40px;
-      height: 40px;
-      background: #f0f4ff;
-      border-radius: 10px;
+      width: 44px;
+      height: 44px;
+      background: #e8f5e9;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 16px;
-      font-size: 20px;
+      font-size: 22px;
+      flex-shrink: 0;
     }
-    .feature-text {
-      flex: 1;
-    }
-    .feature-title {
+    .feature-content h3 {
+      font-size: 16px;
       font-weight: 600;
-      color: #1a1a1a;
+      color: #1a5f2a;
+      margin-bottom: 4px;
     }
-    .feature-desc {
+    .feature-content p {
       font-size: 14px;
       color: #666;
-    }
-    .links {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .links a {
-      display: block;
-      padding: 16px;
-      color: #333;
-      text-decoration: none;
-      border-bottom: 1px solid #eee;
-      transition: background 0.2s;
-    }
-    .links a:last-child {
-      border-bottom: none;
-    }
-    .links a:hover {
-      background: #f9fafb;
-    }
-    .contact {
-      margin-top: 40px;
-      color: rgba(255,255,255,0.8);
-      font-size: 14px;
-    }
-    .contact a {
-      color: #fff;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="app-icon">⛳</div>
+    <div class="icon">⛳</div>
     <h1>굿샷날씨</h1>
-    <p class="tagline">골프장 날씨를 한눈에</p>
+    <p class="tagline">골퍼를 위한 날씨 앱</p>
 
     <div class="features">
-      <h2>주요 기능</h2>
-      <div class="feature-item">
+      <div class="feature">
         <div class="feature-icon">🌤️</div>
-        <div class="feature-text">
-          <div class="feature-title">실시간 날씨</div>
-          <div class="feature-desc">골프장별 시간대별 날씨 예보</div>
+        <div class="feature-content">
+          <h3>골프장 날씨 예보</h3>
+          <p>시간별, 일별 날씨를 한눈에 확인하세요</p>
         </div>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">📅</div>
-        <div class="feature-text">
-          <div class="feature-title">주간 예보</div>
-          <div class="feature-desc">일주일 날씨로 라운드 계획</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📹</div>
-        <div class="feature-text">
-          <div class="feature-title">도로 CCTV</div>
-          <div class="feature-desc">골프장 주변 실시간 교통 상황</div>
-        </div>
-      </div>
-      <div class="feature-item">
+
+      <div class="feature">
         <div class="feature-icon">⭐</div>
-        <div class="feature-text">
-          <div class="feature-title">즐겨찾기</div>
-          <div class="feature-desc">자주 가는 골프장 빠르게 확인</div>
+        <div class="feature-content">
+          <h3>즐겨찾기</h3>
+          <p>자주 가는 골프장을 저장하고 빠르게 확인하세요</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📹</div>
+        <div class="feature-content">
+          <h3>도로 CCTV</h3>
+          <p>골프장 주변 도로 상황을 실시간으로 확인하세요</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <div class="feature-content">
+          <h3>홈 화면 위젯</h3>
+          <p>앱을 열지 않아도 날씨를 확인할 수 있어요</p>
         </div>
       </div>
     </div>
-
-    <div class="links">
-      <a href="privacy-policy.html">개인정보 처리방침</a>
-      <a href="terms.html">이용약관</a>
-      <a href="mailto:goodshotweather@gmail.com">문의하기</a>
-    </div>
-
-    <p class="contact">
-      문의: <a href="mailto:goodshotweather@gmail.com">goodshotweather@gmail.com</a>
-    </p>
   </div>
 </body>
 </html>
