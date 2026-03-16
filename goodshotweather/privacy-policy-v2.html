@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개인정보 처리방침 v2 - 굿샷날씨</title>
+  <style>
+    :root {
+      --primary: #1B5E20;
+      --primary-light: #4CAF50;
+      --text: #1a1a1a;
+      --text-secondary: #666;
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.8;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    header {
+      background: var(--primary);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .back-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #eee;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .date {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .intro {
+      background: #E8F5E9;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      color: var(--primary);
+      line-height: 1.7;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+    }
+
+    ul {
+      margin: 12px 0 20px 24px;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-box {
+      background: var(--card-bg);
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .contact-box p {
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .contact-box a {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        굿샷날씨
+      </a>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="page-header">
+      <h1>개인정보 처리방침</h1>
+      <p class="date">버전: v2 · 최종 수정일: 2026년 3월 15일</p>
+    </div>
+
+    <div class="intro">
+      굿샷날씨는 로그인, 일정 동기화, 알림, 구독 기능 및 핵심 날씨 서비스를 제공하는 데 필요한 최소한의 정보만 처리합니다.
+    </div>
+
+    <h2>1. 수집 및 처리하는 정보</h2>
+    <ul>
+      <li>Firebase Authentication을 통한 사용자 식별자, 로그인 제공자 정보, 이메일 주소(제공된 경우)</li>
+      <li>라운딩 일정, 즐겨찾기 골프장, 알림 설정 등 앱 데이터</li>
+      <li>푸시 알림 전달과 서비스 운영을 위한 푸시 토큰, 플랫폼, 앱 버전 등의 기기 정보</li>
+      <li>프리미엄 구독 검증 및 복원을 위한 구독 상태와 스토어 구매 식별자</li>
+    </ul>
+
+    <h2>2. 처리 목적</h2>
+    <ul>
+      <li>로그인 상태 유지 및 사용자 데이터 동기화</li>
+      <li>일정 기반 날씨 알림 제공 및 서비스 안정성 향상</li>
+      <li>프리미엄 권한 확인, 광고 제거, 구매 복원 처리</li>
+      <li>문의 응대 및 서비스 장애 대응</li>
+    </ul>
+
+    <h2>3. 보관 및 삭제</h2>
+    <ul>
+      <li>기기 내부에만 저장되는 데이터는 앱 삭제 시 함께 제거됩니다.</li>
+      <li>서버에 저장되는 계정 관련 데이터는 계정 삭제 요청 또는 운영 정책에 따라 삭제될 수 있습니다.</li>
+    </ul>
+
+    <h2>4. 제3자 서비스</h2>
+    <p>앱은 다음 외부 서비스를 이용하며, 각 서비스의 데이터 처리에는 해당 사업자의 정책이 적용됩니다.</p>
+    <ul>
+      <li>Firebase (Authentication, Firestore, Messaging, Analytics)</li>
+      <li>Google AdMob</li>
+      <li>RevenueCat 및 Apple App Store, Google Play 등 결제 스토어</li>
+      <li>공공데이터포털(기상청)</li>
+      <li>국가교통정보센터(ITS)</li>
+    </ul>
+
+    <h2>5. 이용자의 권리</h2>
+    <p>계정 또는 저장 데이터와 관련한 열람, 정정, 삭제 요청은 아래 연락처를 통해 문의할 수 있습니다.</p>
+
+    <h2>6. 문의</h2>
+    <div class="contact-box">
+      <p>개인정보 관련 문의:</p>
+      <a href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
+    </div>
+  </main>
+</body>
+</html>

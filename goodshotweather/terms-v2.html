@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이용약관 v2 - 굿샷날씨</title>
+  <style>
+    :root {
+      --primary: #1B5E20;
+      --primary-light: #4CAF50;
+      --text: #1a1a1a;
+      --text-secondary: #666;
+      --bg: #FAFAFA;
+      --card-bg: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      line-height: 1.8;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    header {
+      background: var(--primary);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .back-link svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #eee;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .date {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+    }
+
+    ul, ol {
+      margin: 12px 0 20px 24px;
+      color: var(--text-secondary);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .highlight-box {
+      background: #FFF8E1;
+      border-left: 4px solid #FFB300;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      color: #5D4037;
+    }
+
+    .contact-box {
+      background: var(--card-bg);
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .contact-box p {
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .contact-box a {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        굿샷날씨
+      </a>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="page-header">
+      <h1>이용약관</h1>
+      <p class="date">버전: v2 · 최종 수정일: 2026년 3월 15일</p>
+    </div>
+
+    <h2>1. 목적</h2>
+    <p>본 약관은 굿샷날씨 서비스 이용 조건을 규정합니다.</p>
+
+    <h2>2. 서비스 내용</h2>
+    <p>앱은 다음 서비스를 제공합니다.</p>
+    <ul>
+      <li>골프장 날씨 예보</li>
+      <li>라운딩 일정 등록 및 관리</li>
+      <li>즐겨찾기 및 계정 기반 데이터 동기화</li>
+      <li>주변 도로 CCTV 정보 조회</li>
+    </ul>
+
+    <h2>3. 계정</h2>
+    <ul>
+      <li>일부 기능은 로그인 후 이용할 수 있습니다.</li>
+      <li>이용자는 본인 계정을 통해 이루어지는 활동에 대한 책임을 집니다.</li>
+    </ul>
+
+    <h2>4. 요금 및 구독</h2>
+    <ul>
+      <li>앱은 기본적으로 무료로 제공됩니다.</li>
+      <li>무료 이용자에게는 광고가 표시될 수 있습니다.</li>
+      <li>일부 기능은 유료 프리미엄 구독을 통해 제공될 수 있습니다.</li>
+      <li>프리미엄 구독은 해지하지 않으면 Apple App Store 또는 Google Play 정책에 따라 자동 갱신될 수 있습니다.</li>
+      <li>환불 및 결제 취소는 각 앱 마켓의 정책을 따릅니다.</li>
+    </ul>
+
+    <h2>5. 면책</h2>
+    <div class="highlight-box">
+      <p>날씨 및 교통 정보는 참고용입니다. 중요한 판단은 공식 발표와 원본 정보를 함께 확인해주세요.</p>
+    </div>
+    <ol>
+      <li>날씨 정보는 공공 날씨 데이터를 기반으로 하며 완전성 또는 정확성을 항상 보장하지 않습니다.</li>
+      <li>예보 또는 교통 정보에 근거한 판단으로 발생한 손해에 대해 개발자는 책임지지 않습니다.</li>
+      <li>점검, 장애, 외부 연동 서비스 문제로 일부 기능이 일시 중단될 수 있습니다.</li>
+      <li>CCTV 제공 여부와 가용성은 외부 교통 정보 제공기관에 따라 달라질 수 있습니다.</li>
+    </ol>
+
+    <h2>6. 약관 변경</h2>
+    <p>약관이 변경되는 경우 앱 또는 관련 공지 채널을 통해 사전 안내합니다.</p>
+
+    <h2>7. 문의</h2>
+    <div class="contact-box">
+      <p>약관 관련 문의:</p>
+      <a href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
+    </div>
+  </main>
+</body>
+</html>
