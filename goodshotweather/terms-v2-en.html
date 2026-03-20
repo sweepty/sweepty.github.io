@@ -2,214 +2,267 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terms of Service v2 - GoodShot Weather</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Terms of Service v2 | GoodShot Weather</title>
+  <meta name="description" content="GoodShot Weather Terms of Service v2">
+  <link rel="canonical" href="https://sweepty.github.io/goodshotweather/terms-v2-en.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1B5E20;
-      --primary-light: #4CAF50;
-      --text: #1a1a1a;
-      --text-secondary: #666;
-      --bg: #FAFAFA;
-      --card-bg: #FFFFFF;
+      --bg: #f6f5f0;
+      --panel: rgba(255, 255, 255, 0.92);
+      --panel-soft: #f5efe0;
+      --text: #1f1d16;
+      --muted: #686250;
+      --line: rgba(31, 29, 22, 0.1);
+      --olive: #465a33;
+      --olive-deep: #26331a;
+      --shadow: 0 22px 52px rgba(37, 33, 21, 0.08);
+      --radius: 24px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif;
-      line-height: 1.8;
+      margin: 0;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text);
-      background: var(--bg);
+      line-height: 1.78;
+      background:
+        radial-gradient(circle at top right, rgba(191, 157, 90, 0.14), transparent 26%),
+        linear-gradient(180deg, #fcfbf7 0%, var(--bg) 100%);
     }
 
-    header {
-      background: var(--primary);
-      padding: 16px 24px;
+    .wrap {
+      width: min(860px, calc(100vw - 24px));
+      margin: 0 auto;
+      padding: 14px 0 48px;
+    }
+
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
+      padding-top: max(10px, env(safe-area-inset-top));
+      backdrop-filter: blur(14px);
     }
 
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
+    .topbar-inner {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 14px 28px rgba(16, 24, 18, 0.06);
     }
 
-    .back-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #fff;
+    .topbar a {
+      color: var(--olive);
       text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .back-link svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
-
-    .page-header {
-      margin-bottom: 40px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #eee;
-    }
-
-    h1 {
-      font-size: 28px;
       font-weight: 700;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .date {
-      color: var(--text-secondary);
       font-size: 14px;
     }
 
-    h2 {
-      font-size: 18px;
+    .label {
+      color: var(--muted);
+      font-size: 13px;
       font-weight: 600;
-      color: var(--text);
-      margin: 32px 0 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    h2::before {
-      content: '';
-      width: 4px;
-      height: 20px;
-      background: var(--primary-light);
-      border-radius: 2px;
+    .hero {
+      margin-top: 14px;
+      padding: 26px 22px 22px;
+      border-radius: 30px;
+      color: #faf9f4;
+      background:
+        linear-gradient(140deg, rgba(38, 51, 26, 0.98), rgba(70, 90, 51, 0.92)),
+        #39492a;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 7vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 620px;
+      color: rgba(250, 249, 244, 0.82);
+      font-size: 15px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .notice {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(161, 107, 17, 0.14);
+      background: var(--panel-soft);
+      color: #5f4a1f;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 14px;
+      padding: 22px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 14px 30px rgba(18, 33, 22, 0.04);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 19px;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
     }
 
     p {
-      margin-bottom: 16px;
-      color: var(--text-secondary);
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 15px;
     }
 
     ul, ol {
-      margin: 12px 0 20px 24px;
-      color: var(--text-secondary);
-    }
-
-    li {
-      margin-bottom: 8px;
-    }
-
-    .highlight-box {
-      background: #FFF8E1;
-      border-left: 4px solid #FFB300;
-      border-radius: 0 8px 8px 0;
-      padding: 16px 20px;
-      margin: 20px 0;
-    }
-
-    .highlight-box p {
       margin: 0;
-      color: #5D4037;
+      padding-left: 18px;
+      color: var(--muted);
     }
 
-    .contact-box {
-      background: var(--card-bg);
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 24px;
-      margin-top: 32px;
-      text-align: center;
+    li + li {
+      margin-top: 8px;
     }
 
-    .contact-box p {
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-
-    .contact-box a {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--primary);
+    .contact {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 14px;
+      background: #faf8f1;
+      color: var(--olive);
+      font-weight: 700;
       text-decoration: none;
+      border: 1px solid rgba(70, 90, 51, 0.14);
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: calc(100vw - 16px);
+        padding-top: 8px;
+      }
+
+      .hero,
+      .section,
+      .notice {
+        border-radius: 22px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <a href="index.html" class="back-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        GoodShot Weather
-      </a>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html">GoodShot Weather Home</a>
+        <div class="label">Terms of Service v2</div>
+      </div>
     </div>
-  </header>
 
-  <main class="content">
-    <div class="page-header">
+    <section class="hero">
       <h1>Terms of Service</h1>
-      <p class="date">Version: v2 · Last updated: March 15, 2026</p>
+      <p>These Terms describe the service conditions for GoodShot Weather, including account use, subscription guidance, data-source limitations, and liability boundaries.</p>
+      <div class="hero-meta">
+        <span class="hero-chip">Version v2</span>
+        <span class="hero-chip">Effective March 20, 2026</span>
+      </div>
+    </section>
+
+    <div class="notice">
+      These Terms apply when using sign-in, schedule saving, alerts, and Premium subscription features in the app. Billing and refunds may also be subject to the policies of the relevant app marketplace.
     </div>
 
-    <h2>1. Purpose</h2>
-    <p>These Terms govern the conditions for using GoodShot Weather.</p>
+    <section class="section">
+      <h2>1. Purpose</h2>
+      <p>These Terms set out the conditions, procedures, rights, and obligations governing the use of the GoodShot Weather mobile service.</p>
+    </section>
 
-    <h2>2. Services</h2>
-    <p>The app provides the following services:</p>
-    <ul>
-      <li>Golf course weather forecasts</li>
-      <li>Rounding schedule creation and management</li>
-      <li>Favorite golf course and account-based sync features</li>
-      <li>Nearby road CCTV information</li>
-    </ul>
+    <section class="section">
+      <h2>2. Services</h2>
+      <ul>
+        <li>Golf course weather forecasts and related information</li>
+        <li>Rounding schedule creation, management, sharing, and alerts</li>
+        <li>Favorites and account-based data sync</li>
+        <li>Road CCTV and other external data-linked features</li>
+        <li>Premium subscription access to certain paid features</li>
+      </ul>
+    </section>
 
-    <h2>3. Accounts</h2>
-    <ul>
-      <li>Some features may require sign-in.</li>
-      <li>You are responsible for activity carried out through your account.</li>
-    </ul>
+    <section class="section">
+      <h2>3. Accounts</h2>
+      <ul>
+        <li>Some features are available only after signing in with Google or Apple.</li>
+        <li>You are responsible for the activity carried out through your account.</li>
+        <li>The operator may limit account-related features where necessary for service stability or policy enforcement.</li>
+      </ul>
+    </section>
 
-    <h2>4. Fees and Subscription</h2>
-    <ul>
-      <li>The app is generally available for free.</li>
-      <li>Ads may be displayed to free users.</li>
-      <li>Certain features may be offered through a paid Premium subscription.</li>
-      <li>Premium subscriptions may auto-renew unless canceled in your Apple App Store or Google Play account settings before the renewal date.</li>
-      <li>Refunds and billing cancellations are handled according to the policies of the relevant app marketplace.</li>
-    </ul>
+    <section class="section">
+      <h2>4. Fees and Subscription</h2>
+      <ul>
+        <li>The app is generally available free of charge, and some screens may display ads.</li>
+        <li>Certain features may be available only through a paid Premium subscription.</li>
+        <li>Subscription billing, renewal, cancellation, and refunds are handled according to Apple App Store or Google Play policies.</li>
+        <li>RevenueCat and external billing providers may be used to verify and restore subscription status.</li>
+      </ul>
+    </section>
 
-    <h2>5. Disclaimer</h2>
-    <div class="highlight-box">
-      <p>Weather and traffic information are provided for reference. Please verify important decisions through official sources.</p>
-    </div>
-    <ol>
-      <li>Weather information is based on public weather data and may not always be complete or perfectly accurate.</li>
-      <li>The developer is not responsible for losses arising from reliance on forecast or traffic data.</li>
-      <li>Some services may be temporarily unavailable due to maintenance, failures, or external provider issues.</li>
-      <li>CCTV availability depends on the external traffic provider.</li>
-    </ol>
+    <section class="section">
+      <h2>5. Restrictions and Disclaimer</h2>
+      <ol>
+        <li>Weather, traffic, CCTV, and other external data are provided for reference and are not guaranteed to be complete, accurate, or real-time at all times.</li>
+        <li>The operator is not liable for losses resulting from decisions made based on external data or forecasts.</li>
+        <li>Parts of the service may be temporarily unavailable due to maintenance, failures, partner service interruption, or network conditions.</li>
+        <li>Except in cases of intentional misconduct or gross negligence, the operator is not responsible for losses caused by unpredictable external factors.</li>
+      </ol>
+    </section>
 
-    <h2>6. Changes to These Terms</h2>
-    <p>If these Terms change, notice will be provided through the app or related announcement channels.</p>
+    <section class="section">
+      <h2>6. Changes to These Terms</h2>
+      <p>If these Terms change, the update will be announced through the app, this web document, or other related notice channels. If the change is material, renewed consent may be requested where appropriate.</p>
+    </section>
 
-    <h2>7. Contact</h2>
-    <div class="contact-box">
-      <p>For questions about these Terms, contact:</p>
-      <a href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
-    </div>
-  </main>
+    <section class="section">
+      <h2>7. Contact</h2>
+      <p>For questions about the service or these Terms, contact:</p>
+      <a class="contact" href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
+    </section>
+  </div>
 </body>
 </html>

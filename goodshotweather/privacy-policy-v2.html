@@ -2,216 +2,266 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>개인정보 처리방침 v2 - 굿샷날씨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>개인정보 처리방침 v2 | 굿샷날씨</title>
+  <meta name="description" content="굿샷날씨 개인정보 처리방침 v2">
+  <link rel="canonical" href="https://sweepty.github.io/goodshotweather/privacy-policy-v2.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1B5E20;
-      --primary-light: #4CAF50;
-      --text: #1a1a1a;
-      --text-secondary: #666;
-      --bg: #FAFAFA;
-      --card-bg: #FFFFFF;
+      --bg: #f5f7f2;
+      --panel: rgba(255, 255, 255, 0.92);
+      --panel-soft: #edf4e9;
+      --text: #162118;
+      --muted: #5f6f63;
+      --line: rgba(22, 33, 24, 0.1);
+      --green: #1f5c35;
+      --green-deep: #153c23;
+      --shadow: 0 22px 52px rgba(25, 43, 28, 0.08);
+      --radius: 24px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-      line-height: 1.8;
+      margin: 0;
+      font-family: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text);
-      background: var(--bg);
+      line-height: 1.78;
+      background:
+        radial-gradient(circle at top left, rgba(71, 124, 79, 0.14), transparent 28%),
+        linear-gradient(180deg, #fbfdf9 0%, var(--bg) 100%);
     }
 
-    header {
-      background: var(--primary);
-      padding: 16px 24px;
+    .wrap {
+      width: min(860px, calc(100vw - 24px));
+      margin: 0 auto;
+      padding: 14px 0 48px;
+    }
+
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
+      padding-top: max(10px, env(safe-area-inset-top));
+      backdrop-filter: blur(14px);
     }
 
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
+    .topbar-inner {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 14px 28px rgba(16, 24, 18, 0.06);
     }
 
-    .back-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #fff;
+    .topbar a {
+      color: var(--green);
       text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .back-link svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
-
-    .page-header {
-      margin-bottom: 40px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #eee;
-    }
-
-    h1 {
-      font-size: 28px;
       font-weight: 700;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .date {
-      color: var(--text-secondary);
       font-size: 14px;
     }
 
-    .intro {
-      background: #E8F5E9;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 32px;
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero {
+      margin-top: 14px;
+      padding: 26px 22px 22px;
+      border-radius: 30px;
+      color: #f8fbf7;
+      background:
+        linear-gradient(140deg, rgba(21, 60, 35, 0.98), rgba(31, 92, 53, 0.92)),
+        #1a472c;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 7vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 620px;
+      color: rgba(248, 251, 247, 0.82);
       font-size: 15px;
-      color: var(--primary);
-      line-height: 1.7;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .notice {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(31, 92, 53, 0.14);
+      background: var(--panel-soft);
+      color: var(--green-deep);
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 14px;
+      padding: 22px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 14px 30px rgba(18, 33, 22, 0.04);
     }
 
     h2 {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text);
-      margin: 32px 0 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    h2::before {
-      content: '';
-      width: 4px;
-      height: 20px;
-      background: var(--primary-light);
-      border-radius: 2px;
+      margin: 0 0 14px;
+      font-size: 19px;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
     }
 
     p {
-      margin-bottom: 16px;
-      color: var(--text-secondary);
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 15px;
     }
 
     ul {
-      margin: 12px 0 20px 24px;
-      color: var(--text-secondary);
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
     }
 
-    li {
-      margin-bottom: 8px;
+    li + li {
+      margin-top: 8px;
     }
 
-    a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .contact-box {
-      background: var(--card-bg);
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 24px;
-      margin-top: 32px;
-      text-align: center;
-    }
-
-    .contact-box p {
-      margin-bottom: 12px;
+    strong {
       color: var(--text);
     }
 
-    .contact-box a {
-      font-size: 18px;
-      font-weight: 600;
+    .contact {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 14px;
+      background: #f6f9f4;
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(31, 92, 53, 0.14);
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: calc(100vw - 16px);
+        padding-top: 8px;
+      }
+
+      .hero,
+      .section,
+      .notice {
+        border-radius: 22px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <a href="index.html" class="back-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        굿샷날씨
-      </a>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html">굿샷날씨 홈</a>
+        <div class="label">Privacy Policy v2</div>
+      </div>
     </div>
-  </header>
 
-  <main class="content">
-    <div class="page-header">
+    <section class="hero">
       <h1>개인정보 처리방침</h1>
-      <p class="date">버전: v2 · 최종 수정일: 2026년 3월 15일</p>
+      <p>굿샷날씨는 골프 라운딩에 필요한 날씨, 일정, 알림, 로그인, 구독 기능을 제공하기 위해 필요한 범위에서만 정보를 처리합니다.</p>
+      <div class="hero-meta">
+        <span class="hero-chip">버전 v2</span>
+        <span class="hero-chip">시행일 2026년 3월 20일</span>
+      </div>
+    </section>
+
+    <div class="notice">
+      본 문서는 앱 내 웹뷰에서 열람할 수 있도록 구성된 버전입니다. 중대한 기능 변경이나 법적 요구사항 반영이 있을 경우 본 페이지를 업데이트할 수 있습니다.
     </div>
 
-    <div class="intro">
-      굿샷날씨는 로그인, 일정 동기화, 알림, 구독 기능 및 핵심 날씨 서비스를 제공하는 데 필요한 최소한의 정보만 처리합니다.
-    </div>
+    <section class="section">
+      <h2>1. 처리하는 정보</h2>
+      <ul>
+        <li><strong>계정 정보</strong>: Firebase Authentication을 통해 생성되는 사용자 식별자, 로그인 제공자 정보, 이메일 주소 또는 이름 등 제공된 정보</li>
+        <li><strong>서비스 이용 데이터</strong>: 라운딩 일정, 즐겨찾기 골프장, 알림 설정, 일정 연동에 필요한 앱 내 데이터</li>
+        <li><strong>기기 및 알림 정보</strong>: 푸시 알림 전송과 기기 등록을 위한 FCM 토큰, 플랫폼, 앱 버전 등 최소 정보</li>
+        <li><strong>구독 정보</strong>: 프리미엄 권한 확인, 결제 복원, 구매 상태 동기화를 위한 스토어 구매 상태 및 RevenueCat 연동 정보</li>
+        <li><strong>광고 및 분석 정보</strong>: 광고 제공, 동의 상태 반영, 서비스 개선을 위한 광고 SDK 정보와 익명 또는 가명 처리된 이벤트 정보</li>
+      </ul>
+    </section>
 
-    <h2>1. 수집 및 처리하는 정보</h2>
-    <ul>
-      <li>Firebase Authentication을 통한 사용자 식별자, 로그인 제공자 정보, 이메일 주소(제공된 경우)</li>
-      <li>라운딩 일정, 즐겨찾기 골프장, 알림 설정 등 앱 데이터</li>
-      <li>푸시 알림 전달과 서비스 운영을 위한 푸시 토큰, 플랫폼, 앱 버전 등의 기기 정보</li>
-      <li>프리미엄 구독 검증 및 복원을 위한 구독 상태와 스토어 구매 식별자</li>
-    </ul>
+    <section class="section">
+      <h2>2. 처리 목적</h2>
+      <ul>
+        <li>로그인 상태 유지 및 기기 간 데이터 동기화</li>
+        <li>라운딩 일정 관리와 일정 기반 날씨 알림 제공</li>
+        <li>프리미엄 구독 권한 확인, 구매 처리, 복원 및 고객 지원</li>
+        <li>광고 노출 제어, 사용자 동의 상태 반영, 서비스 운영 안정화</li>
+        <li>앱 사용 흐름 분석, 오류 대응, 주요 기능 개선</li>
+      </ul>
+    </section>
 
-    <h2>2. 처리 목적</h2>
-    <ul>
-      <li>로그인 상태 유지 및 사용자 데이터 동기화</li>
-      <li>일정 기반 날씨 알림 제공 및 서비스 안정성 향상</li>
-      <li>프리미엄 권한 확인, 광고 제거, 구매 복원 처리</li>
-      <li>문의 응대 및 서비스 장애 대응</li>
-    </ul>
+    <section class="section">
+      <h2>3. 보관 및 삭제</h2>
+      <p>기기 내부에만 저장되는 일부 설정 정보는 앱 삭제 시 함께 제거될 수 있습니다. 계정 기반 데이터는 회원 탈퇴 또는 삭제 요청, 관련 법령, 내부 운영 정책에 따라 보관 후 삭제될 수 있습니다.</p>
+      <p>구독, 결제, 환불 관련 정보는 Apple App Store, Google Play, RevenueCat 등 외부 사업자의 정책에 따라 별도로 보관될 수 있습니다.</p>
+    </section>
 
-    <h2>3. 보관 및 삭제</h2>
-    <ul>
-      <li>기기 내부에만 저장되는 데이터는 앱 삭제 시 함께 제거됩니다.</li>
-      <li>서버에 저장되는 계정 관련 데이터는 계정 삭제 요청 또는 운영 정책에 따라 삭제될 수 있습니다.</li>
-    </ul>
+    <section class="section">
+      <h2>4. 제3자 서비스</h2>
+      <p>앱은 아래 서비스를 이용할 수 있으며, 각 서비스의 데이터 처리에는 해당 사업자의 정책이 적용됩니다.</p>
+      <ul>
+        <li>Google Firebase: Authentication, Analytics, Cloud Messaging, Firestore 등</li>
+        <li>Google AdMob 및 UMP(User Messaging Platform)</li>
+        <li>RevenueCat</li>
+        <li>Apple App Store, Google Play 등 결제 스토어</li>
+        <li>공공데이터포털(기상청), 국가교통정보센터(ITS) 등 외부 데이터 제공처</li>
+      </ul>
+    </section>
 
-    <h2>4. 제3자 서비스</h2>
-    <p>앱은 다음 외부 서비스를 이용하며, 각 서비스의 데이터 처리에는 해당 사업자의 정책이 적용됩니다.</p>
-    <ul>
-      <li>Firebase (Authentication, Firestore, Messaging, Analytics)</li>
-      <li>Google AdMob</li>
-      <li>RevenueCat 및 Apple App Store, Google Play 등 결제 스토어</li>
-      <li>공공데이터포털(기상청)</li>
-      <li>국가교통정보센터(ITS)</li>
-    </ul>
+    <section class="section">
+      <h2>5. 이용자의 권리</h2>
+      <p>이용자는 본인의 개인정보에 대해 열람, 정정, 삭제, 처리정지 요청을 문의할 수 있습니다. 계정 삭제나 데이터 삭제와 관련한 요청은 아래 연락처로 접수할 수 있습니다.</p>
+    </section>
 
-    <h2>5. 이용자의 권리</h2>
-    <p>계정 또는 저장 데이터와 관련한 열람, 정정, 삭제 요청은 아래 연락처를 통해 문의할 수 있습니다.</p>
-
-    <h2>6. 문의</h2>
-    <div class="contact-box">
-      <p>개인정보 관련 문의:</p>
-      <a href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
-    </div>
-  </main>
+    <section class="section">
+      <h2>6. 문의처</h2>
+      <p>개인정보 관련 문의는 아래 이메일로 접수해 주세요.</p>
+      <a class="contact" href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
+    </section>
+  </div>
 </body>
 </html>

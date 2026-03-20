@@ -2,217 +2,266 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy v2 - GoodShot Weather</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Privacy Policy v2 | GoodShot Weather</title>
+  <meta name="description" content="GoodShot Weather Privacy Policy v2">
+  <link rel="canonical" href="https://sweepty.github.io/goodshotweather/privacy-policy-v2-en.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1B5E20;
-      --primary-light: #4CAF50;
-      --text: #1a1a1a;
-      --text-secondary: #666;
-      --bg: #FAFAFA;
-      --card-bg: #FFFFFF;
+      --bg: #f5f7f2;
+      --panel: rgba(255, 255, 255, 0.92);
+      --panel-soft: #edf4e9;
+      --text: #162118;
+      --muted: #5f6f63;
+      --line: rgba(22, 33, 24, 0.1);
+      --green: #1f5c35;
+      --green-deep: #153c23;
+      --shadow: 0 22px 52px rgba(25, 43, 28, 0.08);
+      --radius: 24px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", sans-serif;
-      line-height: 1.8;
+      margin: 0;
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text);
-      background: var(--bg);
+      line-height: 1.78;
+      background:
+        radial-gradient(circle at top left, rgba(71, 124, 79, 0.14), transparent 28%),
+        linear-gradient(180deg, #fbfdf9 0%, var(--bg) 100%);
     }
 
-    header {
-      background: var(--primary);
-      padding: 16px 24px;
+    .wrap {
+      width: min(860px, calc(100vw - 24px));
+      margin: 0 auto;
+      padding: 14px 0 48px;
+    }
+
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
+      padding-top: max(10px, env(safe-area-inset-top));
+      backdrop-filter: blur(14px);
     }
 
-    .header-content {
-      max-width: 800px;
-      margin: 0 auto;
+    .topbar-inner {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 14px 28px rgba(16, 24, 18, 0.06);
     }
 
-    .back-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #fff;
+    .topbar a {
+      color: var(--green);
       text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      opacity: 0.9;
-    }
-
-    .back-link svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
-
-    .page-header {
-      margin-bottom: 40px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #eee;
-    }
-
-    h1 {
-      font-size: 28px;
       font-weight: 700;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .date {
-      color: var(--text-secondary);
       font-size: 14px;
     }
 
-    .intro {
-      background: #E8F5E9;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 32px;
+    .label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero {
+      margin-top: 14px;
+      padding: 26px 22px 22px;
+      border-radius: 30px;
+      color: #f8fbf7;
+      background:
+        linear-gradient(140deg, rgba(21, 60, 35, 0.98), rgba(31, 92, 53, 0.92)),
+        #1a472c;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 7vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 620px;
+      color: rgba(248, 251, 247, 0.82);
       font-size: 15px;
-      color: var(--primary);
-      line-height: 1.7;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .notice {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(31, 92, 53, 0.14);
+      background: var(--panel-soft);
+      color: var(--green-deep);
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 14px;
+      padding: 22px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 14px 30px rgba(18, 33, 22, 0.04);
     }
 
     h2 {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text);
-      margin: 32px 0 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    h2::before {
-      content: '';
-      width: 4px;
-      height: 20px;
-      background: var(--primary-light);
-      border-radius: 2px;
+      margin: 0 0 14px;
+      font-size: 19px;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
     }
 
     p {
-      margin-bottom: 16px;
-      color: var(--text-secondary);
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 15px;
     }
 
     ul {
-      margin: 12px 0 20px 24px;
-      color: var(--text-secondary);
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
     }
 
-    li {
-      margin-bottom: 8px;
+    li + li {
+      margin-top: 8px;
     }
 
-    a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .contact-box {
-      background: var(--card-bg);
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 24px;
-      margin-top: 32px;
-      text-align: center;
-    }
-
-    .contact-box p {
-      margin-bottom: 12px;
+    strong {
       color: var(--text);
     }
 
-    .contact-box a {
-      font-size: 18px;
-      font-weight: 600;
+    .contact {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 14px;
+      background: #f6f9f4;
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid rgba(31, 92, 53, 0.14);
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: calc(100vw - 16px);
+        padding-top: 8px;
+      }
+
+      .hero,
+      .section,
+      .notice {
+        border-radius: 22px;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <a href="index.html" class="back-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        GoodShot Weather
-      </a>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html">GoodShot Weather Home</a>
+        <div class="label">Privacy Policy v2</div>
+      </div>
     </div>
-  </header>
 
-  <main class="content">
-    <div class="page-header">
+    <section class="hero">
       <h1>Privacy Policy</h1>
-      <p class="date">Version: v2 · Last updated: March 15, 2026</p>
+      <p>GoodShot Weather processes only the information reasonably necessary to provide weather, schedules, alerts, sign-in, and subscription features.</p>
+      <div class="hero-meta">
+        <span class="hero-chip">Version v2</span>
+        <span class="hero-chip">Effective March 20, 2026</span>
+      </div>
+    </section>
+
+    <div class="notice">
+      This page is formatted for in-app webview use. It may be updated when features materially change or when legal and platform requirements need to be reflected.
     </div>
 
-    <div class="intro">
-      GoodShot Weather processes only the minimum information necessary to provide sign-in,
-      schedule sync, notifications, subscription features, and core weather services.
-    </div>
+    <section class="section">
+      <h2>1. Information We Process</h2>
+      <ul>
+        <li><strong>Account information</strong>: user identifier, sign-in provider, email address, or name provided through Firebase Authentication</li>
+        <li><strong>Service data</strong>: rounding schedules, favorite golf courses, notification preferences, and related in-app data</li>
+        <li><strong>Device and notification data</strong>: FCM token, platform, and app version used for device registration and push notification delivery</li>
+        <li><strong>Subscription data</strong>: store purchase status and RevenueCat-linked data used to verify, restore, and maintain Premium access</li>
+        <li><strong>Ads and analytics data</strong>: advertising consent state and anonymized or pseudonymized event data used for service improvement and ad operations</li>
+      </ul>
+    </section>
 
-    <h2>1. Information We Collect and Process</h2>
-    <ul>
-      <li>Account information such as user ID, sign-in provider, and email address when provided through Firebase Authentication</li>
-      <li>App data such as rounding schedules, favorite golf courses, and notification preferences</li>
-      <li>Device and notification information such as push token, platform, and app version for delivering notifications and maintaining the service</li>
-      <li>Subscription status and store purchase identifiers required for validating and restoring Premium subscriptions</li>
-    </ul>
+    <section class="section">
+      <h2>2. Why We Process It</h2>
+      <ul>
+        <li>To keep users signed in and sync data across devices</li>
+        <li>To manage schedules and provide schedule-based weather alerts</li>
+        <li>To validate Premium access, handle purchases, restore subscriptions, and support users</li>
+        <li>To control ad serving, reflect consent choices, and keep the service stable</li>
+        <li>To analyze app flows, troubleshoot issues, and improve key features</li>
+      </ul>
+    </section>
 
-    <h2>2. Why We Process This Information</h2>
-    <ul>
-      <li>To maintain sign-in state and sync user data across devices</li>
-      <li>To provide schedule-based weather alerts and improve reliability</li>
-      <li>To validate Premium access, remove ads, and restore purchases</li>
-      <li>To respond to support requests and investigate service issues</li>
-    </ul>
+    <section class="section">
+      <h2>3. Retention and Deletion</h2>
+      <p>Some settings stored only on the device may be removed when the app is deleted. Account-based data may be retained and deleted in accordance with deletion requests, applicable law, and internal operational policy.</p>
+      <p>Subscription, billing, and refund records may also be retained under the policies of external providers such as Apple App Store, Google Play, and RevenueCat.</p>
+    </section>
 
-    <h2>3. Retention and Deletion</h2>
-    <ul>
-      <li>Device-only data is removed when the app is deleted from the device.</li>
-      <li>Server-stored account data may be deleted upon account deletion request or according to operational policy.</li>
-    </ul>
+    <section class="section">
+      <h2>4. Third-Party Services</h2>
+      <p>The app may use the following services, each of which processes data under its own policies.</p>
+      <ul>
+        <li>Google Firebase: Authentication, Analytics, Cloud Messaging, Firestore, and related services</li>
+        <li>Google AdMob and UMP (User Messaging Platform)</li>
+        <li>RevenueCat</li>
+        <li>Apple App Store and Google Play billing systems</li>
+        <li>External data providers such as the Korea Meteorological Administration and the National Transport Information Center</li>
+      </ul>
+    </section>
 
-    <h2>4. Third-Party Services</h2>
-    <p>The app uses third-party services that may process data under their own privacy policies.</p>
-    <ul>
-      <li>Firebase (Authentication, Firestore, Messaging, Analytics)</li>
-      <li>Google AdMob</li>
-      <li>RevenueCat and store billing systems such as Apple App Store and Google Play</li>
-      <li>Public Data Portal (Korea Meteorological Administration)</li>
-      <li>National Transport Information Center (ITS)</li>
-    </ul>
+    <section class="section">
+      <h2>5. Your Rights</h2>
+      <p>You may request access, correction, deletion, or other privacy-related action regarding your personal data. Requests related to account deletion or stored data may be sent to the contact address below.</p>
+    </section>
 
-    <h2>5. Your Rights</h2>
-    <p>You may request access, correction, or deletion related to your account or stored data through the contact address below.</p>
-
-    <h2>6. Contact</h2>
-    <div class="contact-box">
-      <p>For privacy-related questions, contact:</p>
-      <a href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
-    </div>
-  </main>
+    <section class="section">
+      <h2>6. Contact</h2>
+      <p>For privacy-related inquiries, contact:</p>
+      <a class="contact" href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
+    </section>
+  </div>
 </body>
 </html>
