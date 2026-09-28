@@ -14,7 +14,8 @@
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "deploy": "gatsby clean && gatsby build && gh-pages -d public -b master --nojekyll"
+    "deploy": "gatsby clean && gatsby build && gh-pages -d public -b master --nojekyll",
+    "new:study": "node scripts/new-study-post.js"
   },
   "dependencies": {
     "@lekoarts/gatsby-theme-minimal-blog": "^6.2.6",

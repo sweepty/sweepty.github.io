@@ -19,10 +19,21 @@ npm run build && npm run serve   # 배포본 미리보기 (http://localhost:9000
 npm run deploy    # 빌드 후 master로 배포
 ```
 
+## 시스템 설계 스터디 글 쓰기
+
+```bash
+npm run new:study -- 2 5 6   # 2편 5~6장 글 뼈대 생성
+```
+
+`content/posts/system-design-interview-vol2-ch5-6/index.mdx`가 만들어집니다 (날짜는 현재 시각 KST).
+`templates/system-design-study.mdx`를 바탕으로 하며, `TODO`를 채우고 필요 없는 섹션은 지우면 됩니다.
+학습 노트 HTML은 `static/study/system-design-vol<권>/`에 넣고 글에서 링크합니다.
+
 ## 구조
 
 - `content/posts/<slug>/index.mdx`: 블로그 글 (MDX 2 문법. 인라인 HTML의 `style`은 `style={{ ... }}` 객체로 작성)
 - `content/pages/`: About 등 페이지
+- `templates/`, `scripts/`: 새 글 템플릿과 생성 스크립트 (빌드에 포함되지 않음)
 - `static/`: 빌드 결과에 그대로 복사되는 파일
   - `app-ads.txt`, `robots.txt`
   - `goodshotweather/`, `todori/`, `privacy/`, `terms/`: 앱 랜딩·약관 페이지
