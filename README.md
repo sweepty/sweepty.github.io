@@ -28,6 +28,6 @@ npm run deploy    # 빌드 후 master로 배포
   - `goodshotweather/`, `todori/`, `privacy/`, `terms/`: 앱 랜딩·약관 페이지
   - `study/`: 스터디 자료 HTML
 - `src/@lekoarts/gatsby-theme-minimal-blog/`: 테마 shadowing
-  - 홈 화면 목록, 글 목록 항목, 태그 구분자, 글 상단 태그 숨김
+  - 홈 화면(최근 글 목록만), 글 목록 항목, 태그 구분자, 글 상단 태그 숨김
   - `post-footer.tsx` + `utterances.tsx`: 글 하단 utterances 댓글
   - `styles/code.ts`: Swift 코드 블록 라벨
