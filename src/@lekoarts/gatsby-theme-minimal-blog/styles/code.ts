@@ -1,19 +1,9 @@
-import { tint } from "@theme-ui/color"
+import type { ThemeUICSSObject } from "theme-ui"
+import { visuallyHidden } from "@lekoarts/gatsby-theme-minimal-blog/src/styles/utils"
 
-const code = {
-  "[data-name='live-editor']": {
-    fontSize: 1,
-    "textarea, pre": {
-      padding: (t: any) => `${t.space[3]} !important`,
-    },
-  },
-  "[data-name='live-preview']": {
-    padding: (t: any) => `calc(${t.space[2]} + 10px) !important`,
-    backgroundColor: tint(`primary`, 0.7),
-  },
+const code: ThemeUICSSObject = {
   ".prism-code": {
     fontSize: [1, 1, 2],
-    padding: `2rem 1rem 1rem 1rem`,
     webkitOverflowScrolling: `touch`,
     backgroundColor: `transparent`,
     minWidth: `100%`,
@@ -26,27 +16,33 @@ const code = {
       },
     },
   },
-  ".gatsby-highlight[data-language=''], .gatsby-highlight[data-language='noLineNumbers']": {
-    ".prism-code": {
+  ".gatsby-highlight[data-language='none'], .gatsby-highlight[data-language='']": {
+    ".code-content": {
       pt: `1rem`,
     },
+  },
+  ".code-content": {
+    padding: `2rem 1rem 1rem 1rem`,
+    color: `plain-color`,
+    backgroundColor: `plain-backgroundColor`,
   },
   ".token": {
     display: `inline-block`,
   },
   "p > code, li > code": {
-    bg: `gray.2`,
-    color: `gray.8`,
+    bg: `muted`,
+    color: `heading`,
     px: 2,
     py: 1,
-    borderRadius: `2px`,
+    borderRadius: `4px`,
+    fontSize: `0.95em`,
   },
   ".gatsby-highlight": {
     fontSize: [1, 1, 2],
     position: `relative`,
     webkitOverflowScrolling: `touch`,
-    bg: `rgb(1, 22, 39)`,
-    borderRadius: `2px`,
+    borderRadius: `4px`,
+    overflow: `hidden`,
     mx: [0, 0, 0, -3],
     ".token-line": {
       mx: -3,
@@ -58,16 +54,22 @@ const code = {
     },
     'pre[class*="language-"]:before': {
       bg: `white`,
-      borderRadius: `0 0 0.25rem 0.25rem`,
+      borderRadius: `0 0 4px 4px`,
       color: `black`,
       fontSize: `12px`,
-      letterSpacing: `0.025rem`,
+      letterSpacing: `0.035rem`,
       padding: `0.1rem 0.5rem`,
       position: `absolute`,
       left: `1rem`,
       textAlign: `right`,
       textTransform: `uppercase`,
-      top: 0,
+      fontFamily: `body`,
+      fontWeight: 600,
+    },
+    'pre[class~="language-golang"]:before, pre[class~="language-go"]:before': {
+      content: `"go"`,
+      background: `#79d4fd`,
+      color: `black`,
     },
     'pre[class~="language-javascript"]:before, pre[class~="language-js"]:before': {
       content: `"js"`,
@@ -117,6 +119,16 @@ const code = {
       content: `"mdx"`,
       background: `#f9ac00`,
       color: `black`,
+    },
+    'pre[class~="language-php"]:before': {
+      content: `"php"`,
+      background: `#777bb3`,
+      color: `black`,
+    },
+    'pre[class~="language-py"]:before, pre[class~="language-python"]:before': {
+      content: `"py"`,
+      background: `#306998`,
+      color: `white`,
     },
     'pre[class~="language-text"]:before': {
       content: `"text"`,
@@ -170,7 +182,7 @@ const code = {
     backgroundColor: `primary`,
   },
   ".gatsby-highlight pre::-webkit-scrollbar-track": {
-    background: `rgb(1, 22, 39)`,
+    background: `muted`,
   },
   ".line-number-style": {
     display: `inline-block`,
@@ -181,23 +193,17 @@ const code = {
     position: `relative`,
   },
   ".code-title": {
-    backgroundColor: tint(`primary`, 0.7),
-    color: `black`,
-    fontSize: 0,
+    backgroundColor: `muted`,
+    color: `text`,
+    fontSize: 1,
     px: 3,
     py: 2,
-    fontFamily: `monospace`,
-    mx: [0, 0, 0, -3],
-  },
-  "[data-name='live-preview'], [data-name='live-editor']": {
-    mx: [0, 0, 0, -3],
-    fontSize: [1, 1, 2],
+    fontFamily: `body`,
   },
   ".token-line": {
     pr: 3,
   },
   ".highlight-line": {
-    backgroundColor: `rgb(2, 55, 81)`,
     borderLeft: `4px solid rgb(2, 155, 206)`,
     ".line-number-style": {
       width: `calc(3em - 4px)`,
@@ -205,11 +211,14 @@ const code = {
       left: `-2px`,
     },
   },
-  ".react-live-wrapper": {
-    position: `relative`,
-  },
-  ".react-live-wrapper .code-copy-button": {
-    right: [0, 0, 0, -3],
+  ".footnotes": {
+    borderTopStyle: `solid`,
+    borderTopWidth: `1px`,
+    borderTopColor: `divide`,
+    pt: 2,
+    mt: 5,
+    overflow: `auto`,
+    ".sr-only": visuallyHidden,
   },
 }
 

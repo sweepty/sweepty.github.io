@@ -1,36 +1,34 @@
 {
   "private": true,
-  "name": "minimal-blog",
-  "description": "Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and line highlighting.",
-  "version": "1.2.5",
-  "author": "LekoArts <hello@lekoarts.de>",
+  "name": "sweepty-blog",
+  "description": "sweepty's blog built with @lekoarts/gatsby-theme-minimal-blog",
+  "version": "2.0.0",
+  "author": "Seungyeon Lee",
   "license": "0BSD",
-  "starter-name": "gatsby-starter-minimal-blog",
+  "engines": {
+    "node": ">=18.0.0 <26"
+  },
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "develop:cypress": "cross-env CYPRESS_SUPPORT=y yarn develop",
-    "build:cypress": "cross-env CYPRESS_SUPPORT=y yarn build",
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "deploy": "gatsby build && gh-pages -d public -b master"
+    "deploy": "gatsby clean && gatsby build && gh-pages -d public -b master --nojekyll"
   },
   "dependencies": {
-    "@lekoarts/gatsby-theme-minimal-blog": "^2.5.2",
-    "gatsby": "^2.20.36",
-    "gatsby-plugin-google-analytics": "^2.1.4",
-    "gatsby-plugin-manifest": "^2.2.3",
-    "gatsby-plugin-netlify": "^2.1.3",
-    "gatsby-plugin-offline": "^2.2.4",
-    "gatsby-plugin-robots-txt": "^1.5.1",
-    "gatsby-plugin-sitemap": "^2.2.19",
-    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.10",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@lekoarts/gatsby-theme-minimal-blog": "^6.2.6",
+    "dotenv": "^16.4.7",
+    "gatsby": "^5.16.1",
+    "gatsby-plugin-feed": "^5.16.0",
+    "gatsby-plugin-manifest": "^5.16.0",
+    "gatsby-plugin-offline": "^6.16.0",
+    "gatsby-plugin-sitemap": "^6.16.0",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.32",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "cross-env": "^5.2.0",
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^6.3.0"
   }
 }

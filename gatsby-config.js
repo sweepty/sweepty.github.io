@@ -8,14 +8,16 @@ module.exports = {
   siteMetadata: {
     siteTitle: `sweepty`,
     siteTitleAlt: `sweepty`,
-    author: `Seungyeon Lee`,
-    description: `Something about you.`,
+    siteHeadline: `sweepty`,
     siteUrl: `https://sweepty.github.io`,
+    siteLanguage: `ko`,
+    siteImage: `/android-chrome-192x192.png`,
+    author: `Seungyeon Lee`,
     social: {
-        github: `https://github.com/sweepty`
+      github: `https://github.com/sweepty`,
     },
-    siteImage: `/android-chrome-192x192.png`
   },
+  trailingSlash: `always`,
   plugins: [
     {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
@@ -32,31 +34,15 @@ module.exports = {
             slug: `/about`,
           },
         ],
-        externalLinks: [
-          // {
-          //   name: `Twitter`,
-          //   url: `https://twitter.com/lekoarts_de`,
-          // },
-          // {
-          //   name: `Instagram`,
-          //   url: `https://www.instagram.com/lekoarts.de/`,
-          // },
-        ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: `UA-135387703-1`,
+        externalLinks: [],
       },
     },
     `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `minimal-blog - @lekoarts/gatsby-theme-minimal-blog`,
-        short_name: `minimal-blog`,
-        description: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
+        name: `sweepty`,
+        short_name: `sweepty`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#6B46C1`,
@@ -76,7 +62,55 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
-    `gatsby-plugin-netlify`,
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title: siteTitle
+                description: siteDescription
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allPost } }) =>
+              allPost.nodes.map((post) => {
+                const url = `${site.siteMetadata.siteUrl}${post.slug}/`
+                const content = `<p>${post.excerpt}</p><div><strong><a href="${url}">Keep reading</a>.</strong></div>`
+
+                return {
+                  title: post.title,
+                  date: post.date,
+                  excerpt: post.excerpt,
+                  url,
+                  guid: url,
+                  custom_elements: [{ "content:encoded": content }],
+                }
+              }),
+            query: `
+              {
+                allPost(sort: { date: DESC }) {
+                  nodes {
+                    title
+                    date(formatString: "MMMM D, YYYY")
+                    excerpt
+                    slug
+                  }
+                }
+              }
+            `,
+            output: `rss.xml`,
+            title: `sweepty`,
+          },
+        ],
+      },
+    },
     shouldAnalyseBundle && {
       resolve: `gatsby-plugin-webpack-bundle-analyser-v2`,
       options: {
