@@ -3,170 +3,567 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>굿샷날씨 - 골프장 날씨 앱</title>
+  <title>굿샷날씨 - 골퍼를 위한 날씨 앱</title>
+  <meta name="description" content="골프장 날씨를 한눈에. 시간별 예보, 10일 예보, 도로 CCTV까지.">
+  <meta property="og:title" content="굿샷날씨">
+  <meta property="og:description" content="골퍼를 위한 날씨 앱">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #25b682;
+      --primary-light: #7de8bf;
+      --primary-deep: #12946c;
+      --sky: #7fd7ff;
+      --sky-soft: #dff6ff;
+      --mint-soft: #eafbf4;
+      --accent: #f2ff7a;
+      --text: #173233;
+      --text-secondary: #587679;
+      --bg: #f5fcff;
+      --bg-strong: #eefaf6;
+      --card-bg: rgba(255, 255, 255, 0.76);
+      --card-border: rgba(107, 195, 180, 0.24);
+      --shadow-soft: 0 20px 60px rgba(73, 150, 156, 0.14);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      padding: 20px;
+
+    html {
+      scroll-behavior: smooth;
     }
-    .container {
-      max-width: 600px;
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(125, 232, 191, 0.45), transparent 32%),
+        radial-gradient(circle at top right, rgba(127, 215, 255, 0.45), transparent 30%),
+        linear-gradient(180deg, #f7fffd 0%, var(--bg) 42%, #f8fffb 100%);
+      overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(242, 255, 122, 0.35), transparent 18%),
+        radial-gradient(circle at 85% 15%, rgba(125, 232, 191, 0.42), transparent 24%),
+        radial-gradient(circle at 50% 85%, rgba(127, 215, 255, 0.26), transparent 32%),
+        linear-gradient(160deg, #f7fffd 0%, #ecfffb 38%, #def6ff 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1)),
+        url("data:image/svg+xml,%3Csvg width='84' height='84' viewBox='0 0 84 84' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2325b682' fill-opacity='0.06'%3E%3Cpath d='M42 20a22 22 0 1 0 0 44a22 22 0 0 0 0-44zm0 9a13 13 0 1 1 0 26a13 13 0 0 1 0-26z'/%3E%3Cpath d='M62 8l3 8l8 3l-8 3l-3 8l-3-8l-8-3l8-3zM18 53l2 6l6 2l-6 2l-2 6l-2-6l-6-2l6-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: auto -10% -18% auto;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 24px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .app-icon {
+      width: 128px;
+      height: 128px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.82), rgba(233, 255, 247, 0.72));
+      backdrop-filter: blur(18px);
+      border-radius: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      font-size: 56px;
+      box-shadow: 0 24px 60px rgba(79, 160, 145, 0.22);
+      border: 1px solid rgba(255,255,255,0.75);
+    }
+
+    .hero h1 {
+      font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+      font-size: clamp(36px, 8vw, 56px);
+      font-weight: 800;
+      color: #12393d;
+      margin-bottom: 14px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero .tagline {
+      font-size: clamp(18px, 4vw, 24px);
+      color: var(--primary-deep);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .hero .subtitle {
+      font-size: 17px;
+      color: #55777b;
+      margin-bottom: 42px;
+      max-width: 470px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .download-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #173233 0%, #274f52 100%);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 18px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-shadow: 0 16px 32px rgba(48, 91, 94, 0.18);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .download-btn .btn-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.15;
+    }
+
+    .download-btn .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .download-btn .label {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .download-btn.play-store {
+      background: rgba(255, 255, 255, 0.9);
+      color: #202124;
+      border: 1px solid rgba(80, 183, 175, 0.22);
+      box-shadow: 0 16px 34px rgba(73, 150, 156, 0.14);
+    }
+
+    .download-btn.play-store .eyebrow {
+      color: #5f6368;
+      opacity: 1;
+    }
+
+    .download-btn.play-store .label {
+      color: #202124;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 38px rgba(48, 91, 94, 0.22);
+    }
+
+    .download-btn.play-store:hover {
+      box-shadow: 0 22px 40px rgba(73, 150, 156, 0.18);
+    }
+
+    .download-btn svg {
+      width: 24px;
+      height: 24px;
+      flex: 0 0 auto;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(43, 108, 116, 0.56);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-10px); }
+      60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* Features Section */
+    .features {
+      padding: 100px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-title h2 {
+      font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #18494d;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-title p {
+      font-size: 18px;
+      color: var(--text-secondary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(37, 182, 130, 0.26);
+      box-shadow: 0 26px 60px rgba(73, 150, 156, 0.18);
+    }
+
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #f3ff97 0%, #9ceccb 46%, #81dfff 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Highlights Section */
+    .highlights {
+      background:
+        radial-gradient(circle at center top, rgba(127, 215, 255, 0.22), transparent 34%),
+        linear-gradient(180deg, rgba(234, 251, 244, 0.5) 0%, rgba(245, 252, 255, 0.88) 100%);
+      padding: 100px 24px;
+    }
+
+    .highlights-content {
+      max-width: 800px;
       margin: 0 auto;
       text-align: center;
-      padding-top: 60px;
+      background: rgba(255,255,255,0.58);
+      border: 1px solid rgba(107, 195, 180, 0.18);
+      box-shadow: var(--shadow-soft);
+      border-radius: 34px;
+      padding: 44px 32px;
+      backdrop-filter: blur(18px);
     }
-    .app-icon {
-      width: 120px;
-      height: 120px;
-      background: #fff;
-      border-radius: 28px;
-      margin: 0 auto 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 60px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+
+    .highlight-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary) 0%, #39c79b 100%);
+      color: #f7fffd;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 24px rgba(37, 182, 130, 0.18);
     }
-    h1 {
-      color: #fff;
-      font-size: 36px;
-      margin-bottom: 12px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    .highlights h2 {
+      font-family: 'Outfit', 'Noto Sans KR', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.4;
+      letter-spacing: -0.03em;
     }
-    .tagline {
-      color: rgba(255,255,255,0.9);
-      font-size: 18px;
+
+    .highlights p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
       margin-bottom: 40px;
     }
-    .features {
-      background: #fff;
-      border-radius: 16px;
-      padding: 32px;
-      margin-bottom: 24px;
-      text-align: left;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .features h2 {
-      font-size: 20px;
-      margin-bottom: 20px;
-      color: #1a1a1a;
-    }
-    .feature-item {
+
+    .data-sources {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .data-source {
+      background: rgba(255,255,255,0.82);
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      box-shadow: 0 10px 24px rgba(73, 150, 156, 0.1);
+      border: 1px solid rgba(107, 195, 180, 0.16);
+    }
+
+    .data-source strong {
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(180deg, #dff8f4 0%, #cfeef1 100%);
+      color: #4f6f72;
+      padding: 60px 24px;
+      border-top: 1px solid rgba(107, 195, 180, 0.2);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-section h4 {
+      color: #1c4548;
+      font-size: 16px;
+      font-weight: 600;
       margin-bottom: 16px;
     }
-    .feature-item:last-child {
-      margin-bottom: 0;
-    }
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      background: #f0f4ff;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 16px;
-      font-size: 20px;
-    }
-    .feature-text {
-      flex: 1;
-    }
-    .feature-title {
-      font-weight: 600;
-      color: #1a1a1a;
-    }
-    .feature-desc {
-      font-size: 14px;
-      color: #666;
-    }
-    .links {
-      background: #fff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .links a {
+
+    .footer-section a {
       display: block;
-      padding: 16px;
-      color: #333;
+      color: #5a787b;
       text-decoration: none;
-      border-bottom: 1px solid #eee;
-      transition: background 0.2s;
+      font-size: 15px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
     }
-    .links a:last-child {
-      border-bottom: none;
+
+    .footer-section a:hover {
+      color: #1a6362;
     }
-    .links a:hover {
-      background: #f9fafb;
-    }
-    .contact {
-      margin-top: 40px;
-      color: rgba(255,255,255,0.8);
+
+    .footer-section p {
       font-size: 14px;
+      line-height: 1.7;
     }
-    .contact a {
-      color: #fff;
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(107, 195, 180, 0.22);
+      text-align: center;
+      font-size: 13px;
+      color: #709194;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        min-height: auto;
+        padding: 80px 0;
+      }
+
+      .highlights-content {
+        padding: 36px 22px;
+      }
+
+      .features {
+        padding: 60px 24px;
+      }
+
+      .highlights {
+        padding: 60px 24px;
+      }
+
+      .section-title {
+        margin-bottom: 40px;
+      }
+
+      .footer-content {
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="app-icon">⛳</div>
-    <h1>굿샷날씨</h1>
-    <p class="tagline">골프장 날씨를 한눈에</p>
-
-    <div class="features">
-      <h2>주요 기능</h2>
-      <div class="feature-item">
-        <div class="feature-icon">🌤️</div>
-        <div class="feature-text">
-          <div class="feature-title">실시간 날씨</div>
-          <div class="feature-desc">골프장별 시간대별 날씨 예보</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📅</div>
-        <div class="feature-text">
-          <div class="feature-title">주간 예보</div>
-          <div class="feature-desc">일주일 날씨로 라운드 계획</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📹</div>
-        <div class="feature-text">
-          <div class="feature-title">도로 CCTV</div>
-          <div class="feature-desc">골프장 주변 실시간 교통 상황</div>
-        </div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">⭐</div>
-        <div class="feature-text">
-          <div class="feature-title">즐겨찾기</div>
-          <div class="feature-desc">자주 가는 골프장 빠르게 확인</div>
-        </div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="app-icon">&#9971;</div>
+      <h1>굿샷날씨</h1>
+      <p class="tagline">골퍼를 위한 날씨 앱</p>
+      <p class="subtitle">라운드 전, 골프장 날씨부터 도로 상황까지 한 번에 확인하세요</p>
+      <div class="download-buttons">
+        <a href="https://apps.apple.com/app/id6758273207" class="download-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+          </svg>
+          <span class="btn-text">
+            <span class="eyebrow">Download on the</span>
+            <span class="label">App Store</span>
+          </span>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=io.github.sweepty.GoodShotWeather" class="download-btn play-store">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3 2.75v18.5c0 .45.24.87.62 1.09l10.6-10.34L3.62 1.66A1.25 1.25 0 0 0 3 2.75Zm13.17 8.2L18.9 8.3 6.12 1.15l10.05 9.8Zm2.73 1.05-2.73 2.65-10.05 9.8 12.78-7.15 1.95-1.1a1.25 1.25 0 0 0 0-2.2l-1.95-1.1Zm-4.68 1.05L3.62 23.34c.19.11.4.16.61.16.2 0 .41-.05.59-.16l11.08-6.2-1.68-1.64Z"/>
+          </svg>
+          <span class="btn-text">
+            <span class="eyebrow">GET IT ON</span>
+            <span class="label">Google Play</span>
+          </span>
+        </a>
       </div>
     </div>
-
-    <div class="links">
-      <a href="privacy-policy.html">개인정보 처리방침</a>
-      <a href="terms.html">이용약관</a>
-      <a href="mailto:goodshotweather@gmail.com">문의하기</a>
+    <div class="scroll-indicator">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
     </div>
+  </section>
 
-    <p class="contact">
-      문의: <a href="mailto:goodshotweather@gmail.com">goodshotweather@gmail.com</a>
-    </p>
-  </div>
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="section-title">
+      <h2>핵심 기능</h2>
+      <p>라운드에 필요한 모든 정보를 담았습니다</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#127780;</div>
+        <h3>실시간 골프장 날씨</h3>
+        <p>선택한 골프장의 현재 날씨와 시간별 예보를 확인하세요. 기온, 습도, 바람, 강수확률까지 한눈에.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128197;</div>
+        <h3>일별 예보</h3>
+        <p>최대 10일간의 날씨 예보로 라운드 일정을 계획하세요. 최고·최저 기온과 강수 확률을 제공합니다.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#11088;</div>
+        <h3>즐겨찾기</h3>
+        <p>자주 가는 골프장을 즐겨찾기에 추가하고 빠르게 날씨를 확인하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128249;</div>
+        <h3>도로 CCTV</h3>
+        <p>골프장 주변 도로의 실시간 CCTV 영상으로 교통 상황을 미리 파악하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127749;</div>
+        <h3>일출·일몰 정보</h3>
+        <p>골프장 위치 기준 정확한 일출·일몰 시간으로 티오프 시간 계획에 참고하세요.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128241;</div>
+        <h3>10일 예보 제공</h3>
+        <p>라운드 날짜가 조금 남아 있어도 미리 10일 예보를 보고 일정과 준비를 계획할 수 있어요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlights -->
+  <section class="highlights">
+    <div class="highlights-content">
+      <span class="highlight-badge">&#127948; 골퍼가 만든 앱</span>
+      <h2>라운드 준비, 이제 더 스마트하게</h2>
+      <p>
+        직접 필드에서 느꼈던 불편함을 해결하기 위해 만들었습니다.<br>
+        기상청 공공데이터를 활용해 정확한 날씨 정보를 제공하고,<br>
+        국토교통부 CCTV로 출발 전 도로 상황까지 확인할 수 있어요.
+      </p>
+      <div class="data-sources">
+        <div class="data-source"><strong>기상청</strong> 단기예보</div>
+        <div class="data-source"><strong>기상청</strong> 중기예보</div>
+        <div class="data-source"><strong>국토교통부</strong> 도로 CCTV</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>굿샷날씨</h4>
+        <p>골퍼를 위한 날씨 앱.<br>언제나 좋은 라운드 되세요!</p>
+      </div>
+      <div class="footer-section">
+        <h4>법적 고지</h4>
+        <a href="privacy-policy.html">개인정보 처리방침</a>
+        <a href="terms.html">이용약관</a>
+      </div>
+      <div class="footer-section">
+        <h4>문의</h4>
+        <a href="mailto:adie0423@icloud.com">adie0423@icloud.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 굿샷날씨
+    </div>
+  </footer>
 </body>
 </html>
