@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>시스템 설계 2권 · 3장 구글 맵 / 4장 분산 메시지 큐</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F4F6; --paper:#FFFFFF; --ink:#18212C; --muted:#5A6573; --line:#D6DCE3;
+  --map:#1E7465; --map-soft:#E3F1EE; --q:#5B45B0; --q-soft:#ECE8F8; --warn:#9A6A00; --warn-soft:#FBF3DC;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12171D; --paper:#1A2129; --ink:#E6EAEF; --muted:#9AA6B3; --line:#2E3945;
+    --map:#5CC2AE; --map-soft:#1C302C; --q:#A896F0; --q-soft:#262140; --warn:#E3B84E; --warn-soft:#2E2715;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12171D; --paper:#1A2129; --ink:#E6EAEF; --muted:#9AA6B3; --line:#2E3945;
+  --map:#5CC2AE; --map-soft:#1C302C; --q:#A896F0; --q-soft:#262140; --warn:#E3B84E; --warn-soft:#2E2715;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-size:16px;line-height:1.75;word-break:keep-all}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);
+  border-bottom:1px solid var(--line)}
+nav.top .in{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+nav.top .book{font-size:13px;color:var(--muted);margin-right:auto}
+nav.top a{font-size:14px;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:999px}
+nav.top a.c3{color:var(--map);background:var(--map-soft)}
+nav.top a.c4{color:var(--q);background:var(--q-soft)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+main{max-width:880px;margin:0 auto;padding:24px 20px 80px}
+.chapter{margin-top:32px}
+.chapter-head{padding:40px 0 20px;border-bottom:3px solid var(--accent)}
+.chapter-head .num{font-size:88px;line-height:1;font-weight:700;color:var(--accent);letter-spacing:-.04em}
+.chapter-head h1{font-size:34px;line-height:1.25;margin:8px 0 10px;letter-spacing:-.02em}
+.chapter-head p{margin:0;color:var(--muted);max-width:62ch}
+#ch3{--accent:var(--map);--soft:var(--map-soft)}
+#ch4{--accent:var(--q);--soft:var(--q-soft)}
+h2{font-size:23px;margin:48px 0 12px;letter-spacing:-.01em}
+h3{font-size:18px;margin:28px 0 8px;color:var(--accent)}
+p,li{max-width:72ch}
+ul,ol{padding-left:1.3em}
+li{margin:4px 0}
+strong{font-weight:700}
+code{font-size:.9em;background:var(--soft);padding:1px 6px;border-radius:4px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:16px 0}
+.key{border-left:4px solid var(--accent);background:var(--soft);padding:14px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+.key p{margin:0}
+.interview{background:var(--warn-soft);border-left:4px solid var(--warn);padding:14px 18px;border-radius:0 8px 8px 0;margin:18px 0}
+.interview b{color:var(--warn)}
+.tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;background:var(--soft)}
+tr:last-child td{border-bottom:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
+.grid .box{margin:0}
+.grid .box h4{margin:0 0 6px;font-size:16px}
+.grid .box p{margin:0;font-size:14.5px;color:var(--muted)}
+pre.mermaid{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;text-align:center;margin:16px 0}
+.recap ol{counter-reset:none}
+.ex{background:var(--paper);border:1px dashed var(--accent);border-radius:10px;padding:14px 18px;margin:16px 0}
+.ex-t{font-weight:700;color:var(--accent);font-size:14.5px;margin-bottom:6px}
+.ex p{margin:6px 0}
+.ex ul{margin:6px 0}
+footer{max-width:880px;margin:0 auto;padding:0 20px 40px;color:var(--muted);font-size:13px}
+@media (max-width:600px){
+  .chapter-head .num{font-size:64px}
+  .chapter-head h1{font-size:27px}
+  body{font-size:15.5px}
+}
+</style>
+</head>
+<body>
+<nav class="top"><div class="in">
+  <span class="book">가상 면접 사례로 배우는 대규모 시스템 설계 기초 2</span>
+  <a class="c3" href="#ch3">3장 구글 맵</a>
+  <a class="c4" href="#ch4">4장 분산 메시지 큐</a>
+</div></nav>
+
+<main>
+
+<!-- ========================= 3장 ========================= -->
+<section class="chapter" id="ch3">
+  <header class="chapter-head">
+    <div class="num">3</div>
+    <h1>구글 맵</h1>
+    <p>위치 갱신, 경로 안내, 지도 표시 세 기능을 DAU 10억 규모로 설계한다. 핵심은 "무거운 건 미리 계산해서 CDN/객체 저장소에 두고, 실시간성이 필요한 부분만 스트리밍으로 처리한다"는 것.</p>
+  </header>
+
+  <h2>1단계 · 문제 이해와 설계 범위</h2>
+  <div class="grid">
+    <div class="box"><h4>기능 요구사항</h4><p>사용자 위치 갱신, 경로 안내(ETA 포함), 지도 표시. 운전 모드 중심이지만 여러 이동 수단 고려. 교통 상황 반영.</p></div>
+    <div class="box"><h4>비기능 요구사항</h4><p>정확도(잘못된 경로 안내 금지), 부드러운 렌더링, 모바일 데이터·배터리 최소 사용, 고가용성·확장성.</p></div>
+  </div>
+
+  <h3>지도 101 — 알고 가야 할 배경지식</h3>
+  <ul>
+    <li><strong>측위 시스템</strong>: 위도·경도로 지구 위 위치를 표현.</li>
+    <li><strong>3D → 2D 투영</strong>: 구면을 평면에 그리는 방법. 구글 맵은 메르카토르를 변형한 <strong>웹 메르카토르</strong>를 사용.</li>
+    <li><strong>지오코딩 / 역지오코딩</strong>: 주소 ↔ 좌표 변환. 보간(interpolation) 방식으로 GIS의 도로망 데이터를 활용.</li>
+    <li><strong>지오해싱</strong>: 지도를 격자로 재귀 분할해 문자열로 인코딩. 1장(근접성 서비스)에서 다룬 개념 재활용.</li>
+    <li><strong>지도 타일</strong>: 지도 전체를 한 장으로 그리지 않고 256×256 픽셀 타일로 쪼갬. 줌 레벨마다 별도 타일 세트가 있고, 클라이언트는 현재 화면·줌에 맞는 타일만 받아 이어 붙임.</li>
+    <li><strong>경로 안내용 도로 데이터</strong>: 교차로 = 노드, 도로 = 엣지인 그래프. 최단 경로는 다익스트라·A* 변형으로 구함.</li>
+  </ul>
+
+  <div class="key"><p><strong>라우팅 타일(routing tile)</strong> — 전 세계 도로를 하나의 그래프로 두면 메모리·성능이 감당 안 된다. 그래서 지오해시처럼 그래프를 격자 단위로 잘라 <strong>라우팅 타일</strong>로 만들고, 타일끼리는 참조로 연결해 필요한 타일만 메모리에 올린다. 또 <strong>상세도에 따라 3계층</strong>(지역 도로 → 간선 도로 → 고속도로, 뒤로 갈수록 타일 크기가 큼)으로 나눠, 먼 거리는 상위 계층 타일로 탐색해 효율을 높인다.</p></div>
+<div class="ex"><div class="ex-t">예시로 보면 · 강남역에서 해운대까지</div><p>전국 골목길을 전부 그래프에 올려 탐색하면 노드가 수천만 개라 감당이 안 된다. 대신 이렇게 나눠 탐색한다.</p><ul><li>출발지 근처: 골목까지 있는 <strong>지역 도로 타일</strong>로 가까운 고속도로 IC까지</li><li>중간 구간: 고속도로만 있는 <strong>큰 타일</strong>로 경부고속도로를 따라 탐색</li><li>도착지 근처: 다시 지역 도로 타일로 내려와 목적지까지</li></ul><p>사람이 길 찾는 방식과 같다. "일단 고속도로 타고, 나가서 골목 찾자."</p></div>
+
+  <h3>개략적 규모 추정</h3>
+  <div class="tw"><table>
+    <tr><th>항목</th><th>계산</th><th>결과</th></tr>
+    <tr><td>지도 타일 저장 용량</td><td>줌 21 기준 약 4.4조 개 × 타일당 100KB ≈ 440PB. 지구 표면의 대부분(바다·사막·숲 등)은 압축률이 매우 높아 실제로는 크게 줄고, 줌 레벨 전체를 합쳐도</td><td>약 100PB 수준</td></tr>
+    <tr><td>위치 갱신 QPS</td><td>DAU 10억 × 주 35분 사용 → 하루 약 50억 분. 1초마다 전송하면 약 300만 QPS</td><td>15초 단위 일괄 전송 시 약 20만 QPS, 최대 약 100만 QPS(평균 × 5)</td></tr>
+  </table></div>
+
+  <h2>2단계 · 개략적 설계</h2>
+  <pre class="mermaid">
+flowchart LR
+  M[모바일 클라이언트] -->|위치 일괄 전송| LB[로드밸런서]
+  M -->|경로 요청| LB
+  M -->|타일 요청| CDN[CDN]
+  LB --> LS[위치 서비스]
+  LB --> NS[경로 안내 서비스]
+  LS --> UDB[(사용자 위치 DB)]
+  NS --> GDB[(지오코딩 DB)]
+  NS --> RT[(라우팅 타일<br/>객체 저장소)]
+  CDN --> S3[(사전 생성 지도 타일<br/>객체 저장소)]
+  </pre>
+
+  <h3>① 위치 서비스</h3>
+  <ul>
+    <li>클라이언트는 매초 보내지 않고 위치를 모아 <strong>15초 같은 주기로 일괄 전송</strong> → 쓰기 QPS 대폭 감소.</li>
+    <li>쓰기가 압도적으로 많으므로 <strong>카산드라</strong>처럼 쓰기에 강하고 수평 확장 쉬운 DB 사용. 가용성 &gt; 일관성(CAP에서 AP).</li>
+    <li>위치 데이터는 <strong>카프카</strong> 같은 스트림으로도 흘려 실시간 교통, 경로 재탐색, 개인화, 분석 등에 재활용.</li>
+    <li>API: <code>POST /v1/locations</code> (위도·경도·타임스탬프 배열), HTTP keep-alive로 연결 재사용.</li>
+  </ul>
+
+  <h3>② 경로 안내 서비스</h3>
+  <ul>
+    <li>API: <code>GET /v1/nav?origin=...&amp;destination=...</code></li>
+    <li>응답: 거리, 소요 시간, 도착 지점, 경로 폴리라인, 단계별 안내, 이동 수단 등.</li>
+    <li>정확도가 중요하지만 수백 ms 수준 응답이면 충분(초저지연까지 요구되진 않음).</li>
+  </ul>
+
+  <h3>③ 지도 표시</h3>
+  <ul>
+    <li>타일을 요청 시점에 동적으로 그리는 방식은 서버 부하가 크고 캐시 효율이 떨어짐 → <strong>줌 레벨별 타일을 미리 생성</strong>해 객체 저장소에 두고 <strong>CDN</strong>으로 서빙.</li>
+    <li>클라이언트는 (줌 레벨, 지오해시)로 타일 URL을 직접 계산하거나, 규칙 변경 유연성을 위해 <strong>타일 URL을 알려주는 별도 서비스</strong>를 둘 수 있음(책은 후자의 장점을 강조: 클라이언트 배포 없이 인코딩 규칙 변경 가능).</li>
+    <li>데이터 사용량 예시: 시속 30km 이동 시 분당 약 1.25MB, 시간당 약 75MB. CDN 전체로는 초당 수십 GB 수준 → 전 세계 POP으로 분산.</li>
+  </ul>
+
+  <h2>3단계 · 상세 설계</h2>
+
+  <h3>데이터 모델</h3>
+  <div class="tw"><table>
+    <tr><th>데이터</th><th>저장 방식</th><th>포인트</th></tr>
+    <tr><td>라우팅 타일</td><td>객체 저장소(S3 등) + 캐시</td><td>도로 데이터를 오프라인 파이프라인으로 가공해 생성. 인접 리스트를 직렬화한 파일, 지오해시로 찾음. DB에 둘 필요 없음</td></tr>
+    <tr><td>사용자 위치</td><td>카산드라</td><td>파티션 키 <code>user_id</code>, 클러스터링 키 <code>timestamp</code> → 사용자별 시간순 조회</td></tr>
+    <tr><td>지오코딩</td><td>레디스 같은 키-값 저장소</td><td>읽기 빈번, 쓰기 드묾 → 인메모리가 적합</td></tr>
+    <tr><td>사전 생성 지도 타일</td><td>객체 저장소 + CDN</td><td>줌 레벨·지오해시 기준으로 키 구성</td></tr>
+  </table></div>
+
+  <h3>지도 표시 최적화 — 벡터 타일</h3>
+  <p>래스터 이미지 대신 경로·다각형 같은 <strong>벡터 정보</strong>를 보내고 클라이언트(WebGL)가 렌더링. 압축이 잘 되고 줌 전환이 훨씬 부드러움.</p>
+
+  <h3>경로 안내 서비스 내부</h3>
+  <pre class="mermaid">
+flowchart TB
+  C[클라이언트] --> RP[경로 계획 서비스]
+  RP --> GC[지오코딩 서비스]
+  RP --> SP[최단 경로 서비스]
+  RP --> ETA[ETA 서비스]
+  RP --> RK[순위 결정 서비스]
+  SP --> RT[(라우팅 타일)]
+  ETA --> TDB[(교통 DB)]
+  K[[카프카: 위치 스트림]] --> UP[갱신 서비스]
+  UP --> TDB
+  UP --> RT
+  </pre>
+  <ul>
+    <li><strong>지오코딩 서비스</strong>: 주소를 좌표로 변환.</li>
+    <li><strong>경로 계획 서비스</strong>: 교통·도로 상황을 고려해 최적 경로를 만드는 오케스트레이터.</li>
+    <li><strong>최단 경로 서비스</strong>: 라우팅 타일 위에서 A* 변형으로 상위 k개 경로 계산. <strong>교통 상황은 고려하지 않음</strong> → 도로 구조가 바뀌지 않는 한 결과가 같아 캐시 가능.</li>
+    <li><strong>ETA 서비스</strong>: 후보 경로별 도착 시간 계산. 현재 교통 + 향후 10~20분 교통 예측(머신러닝)까지 반영.</li>
+    <li><strong>순위 결정 서비스</strong>
+: 유료 도로·고속도로 회피 같은 사용자 필터를 적용해 최종 경로 순위 결정.</li>
+    <li><strong>중요 정보 갱신 서비스</strong>: 카프카 위치 스트림을 받아 교통 DB와 라우팅 타일을 비동기 갱신.</li>
+  </ul>
+<div class="ex"><div class="ex-t">예시로 보면 · 최단 경로와 ETA를 나눈 이유</div><p>강남역에서 판교까지 후보가 경부고속도로, 분당수서로, 국도 세 개라고 하자. 이 <strong>후보 목록</strong>은 새 도로가 뚫리지 않는 한 오늘이나 내일이나 같다. 그래서 최단 경로 서비스는 교통을 무시하고 후보만 뽑고, 결과를 캐시한다.</p><p>반면 "지금 경부는 45분, 분당수서로는 30분"은 매 순간 바뀐다. 이건 ETA 서비스가 실시간 교통으로 계산한다. <strong>변하지 않는 것과 변하는 것을 분리해야 캐시를 쓸 수 있다</strong>는 게 요점.</p></div>
+
+  <h3>적응형 ETA와 경로 재탐색</h3>
+  <p>교통 상황이 바뀌면 영향받는 <strong>활성 내비게이션 사용자</strong>를 찾아 ETA/경로를 다시 보내야 한다. 사용자별로 경로상의 모든 타일을 들고 있으면 탐색 비용이 크므로, 사용자 위치 타일부터 목적지를 포함할 때까지 <strong>상위 계층 타일을 올라가며</strong> 저장한다. 그러면 "교통 변화가 생긴 타일이 사용자의 가장 큰 타일 안에 있는가"만 확인하면 돼 필터링이 빨라진다.</p>
+<div class="ex"><div class="ex-t">예시로 보면 · 판교 IC 사고</div><p>판교 IC 근처에서 사고가 났다. 지금 내비를 켠 수백만 명 중 누구에게 경로 재계산을 보내야 할까?</p><ul><li>사용자마다 경로상의 작은 타일 수백 개를 저장하면 → 수백만 명 × 수백 개를 뒤져야 함</li><li>대신 "현재 위치 타일 → 그걸 포함하는 더 큰 타일 → … → 목적지까지 포함하는 가장 큰 타일" 몇 개만 저장</li><li>"사고 난 타일이 이 사용자의 가장 큰 타일 안에 있나?"만 확인. 강원도에서 운전 중인 사람은 가장 큰 타일에 판교가 없으니 바로 제외</li></ul></div>
+
+  <h3>클라이언트 전달 프로토콜</h3>
+  <div class="tw"><table>
+    <tr><th>방식</th><th>평가</th></tr>
+    <tr><td>모바일 푸시 알림</td><td>페이로드 크기 제한(iOS 4KB), 웹 앱 미지원 → 부적합</td></tr>
+    <tr><td>롱 폴링</td><td>가능하지만 서버 자원 소모 큼</td></tr>
+    <tr><td>웹소켓</td><td>양방향, 적은 오버헤드 → <strong>책의 선택</strong></td></tr>
+    <tr><td>SSE</td><td>서버→클라이언트 단방향으로 충분하면 역시 가능</td></tr>
+  </table></div>
+
+  <div class="interview"><p><b>면접 포인트</b> — ① 타일은 "미리 만들고 CDN", ② 위치는 "일괄 전송 + 쓰기 최적 DB + 스트림 재활용", ③ 경로는 "최단 경로(캐시 가능)와 ETA(실시간)를 분리"한다는 세 문장으로 요약하면 전체 구조가 설명된다. 추가 논의 거리로는 다중 경유지 경로 같은 기능 확장이 있다.</p></div>
+</section>
+
+<!-- ========================= 4장 ========================= -->
+<section class="chapter" id="ch4">
+  <header class="chapter-head">
+    <div class="num">4</div>
+    <h1>분산 메시지 큐</h1>
+    <p>전통적인 메시지 큐에 "데이터 장기 보관"과 "반복 소비"를 더한, 카프카 스타일의 이벤트 스트리밍 플랫폼을 설계한다. 성능의 핵심은 디스크 순차 쓰기와 일괄 처리, 신뢰성의 핵심은 복제와 ACK 설정.</p>
+  </header>
+
+  <h2>왜 메시지 큐인가</h2>
+  <div class="grid">
+    <div class="box"><h4>결합도 완화</h4><p>컴포넌트가 서로를 직접 알지 않아도 되어 독립적으로 갱신 가능.</p></div>
+    <div class="box"><h4>규모 확장성</h4><p>생산자·소비자를 트래픽에 맞춰 각각 늘리고 줄일 수 있음.</p></div>
+    <div class="box"><h4>가용성</h4><p>한 컴포넌트가 죽어도 나머지는 큐를 통해 계속 동작.</p></div>
+    <div class="box"><h4>성능</h4><p>비동기 통신으로 응답을 기다리지 않음.</p></div>
+  </div>
+  <p><strong>메시지 큐 vs 이벤트 스트리밍 플랫폼</strong>: RocketMQ·ActiveMQ·RabbitMQ·ZeroMQ는 전통적 메시지 큐, 카프카·펄서는 이벤트 스트리밍 플랫폼으로 분류되지만 경계는 점점 흐려지고 있다. 이 장은 장기 보관·반복 소비가 가능한 쪽을 설계한다.</p>
+
+  <h2>1단계 · 문제 이해와 설계 범위</h2>
+  <div class="grid">
+    <div class="box"><h4>기능 요구사항</h4><p>생산자는 전송, 소비자는 소비. 메시지 반복 소비 가능. 오래된 데이터는 삭제(예: 2주 보관). 메시지 크기는 KB 수준. 생산 순서대로 소비. 전달 방식(최대 한 번/최소 한 번/정확히 한 번) 설정 가능.</p></div>
+    <div class="box"><h4>비기능 요구사항</h4><p>용도에 따라 높은 대역폭 또는 낮은 지연을 선택 가능. 트래픽 급증에 대응하는 분산 확장성. 데이터는 디스크에 지속·다중 복제.</p></div>
+  </div>
+  <p>전통적 큐와의 차이: 전통적 큐는 소비되면 메시지를 지우고 메모리 위주로 보관하며 순서 보장이 약하다. 여기서는 <strong>디스크에 오래 보관</strong>하고 <strong>순서를 보장</strong>해야 한다.</p>
+
+  <h2>2단계 · 개략적 설계</h2>
+
+  <h3>메시지 모델</h3>
+  <ul>
+    <li><strong>일대일(point-to-point)</strong>: 메시지는 한 소비자만 가져가고, ACK 받으면 삭제. 보관 개념 없음.</li>
+    <li><strong>발행-구독(pub-sub)</strong>: 메시지를 <strong>토픽</strong>에 보내면 구독하는 모든 소비자가 받음.</li>
+    <li>이 설계는 <strong>소비자 그룹</strong>으로 두 모델을 모두 지원한다: 그룹 간에는 pub-sub, 그룹 내부에서는 일대일처럼 동작.</li>
+  </ul>
+
+  <h3>토픽 · 파티션 · 브로커</h3>
+  <ul>
+    <li>토픽 하나를 여러 <strong>파티션</strong>으로 샤딩해 여러 서버(<strong>브로커</strong>)에 분산.</li>
+    <li>파티션은 FIFO로 동작하고 그 안에서만 순서가 보장됨. 파티션 내 메시지 위치 = <strong>오프셋</strong>.</li>
+    <li>메시지의 키를 해시해 파티션을 고름. 같은 키는 항상 같은 파티션 → 키 단위 순서 보장.</li>
+  </ul>
+
+  <div class="key"><p><strong>소비자 그룹 규칙</strong> — 하나의 파티션은 같은 그룹 안에서 <strong>한 소비자만</strong> 읽을 수 있다. 그래서 순서가 보장되지만, 그룹 내 소비자 수가 파티션 수보다 많으면 노는 소비자가 생긴다. 파티션 수가 병렬 소비의 상한이다.</p></div>
+<div class="ex"><div class="ex-t">예시로 보면 · 주문 이벤트 토픽, 파티션 3개</div><p><code>hash(주문자ID) % 3</code>으로 파티션을 고르면, 한 사용자의 "주문 생성 → 결제 → 취소" 이벤트는 항상 같은 파티션에 순서대로 쌓인다. 취소가 생성보다 먼저 처리될 일이 없다.</p><ul><li><strong>배송 서비스</strong> 그룹에 소비자 3개 → 파티션 하나씩 담당. 4개로 늘리면 하나는 논다. 처리량을 올리려면 소비자보다 <strong>파티션을 먼저</strong> 늘려야 한다.</li><li><strong>정산 서비스</strong> 그룹은 같은 메시지를 따로 처음부터 다 읽는다. 이게 그룹 간 pub-sub.</li></ul></div>
+
+  <h3>전체 구조</h3>
+  <pre class="mermaid">
+flowchart LR
+  P[생산자] --> B1
+  P --> B2
+  subgraph 브로커 클러스터
+    B1[브로커 1<br/>파티션들]
+    B2[브로커 2<br/>파티션들]
+  end
+  B1 --> CG[소비자 그룹]
+  B2 --> CG
+  B1 -.-> DS[(데이터 저장소)]
+  B1 -.-> SS[(상태 저장소<br/>소비 오프셋)]
+  B1 -.-> MS[(메타데이터 저장소<br/>토픽 설정)]
+  CO[조정 서비스<br/>주키퍼 / etcd] -.-> B1
+  CO -.-> B2
+  </pre>
+  <ul>
+    <li><strong>클라이언트</strong>: 생산자, 소비자 그룹.</li>
+    <li><strong>핵심 서비스·저장소</strong>: 브로커(파티션 보관), 데이터 저장소(메시지), 상태 저장소(소비자 상태), 메타데이터 저장소(토픽 설정·속성).</li>
+    <li><strong>조정 서비스</strong>: 서비스 탐색(살아 있는 브로커 파악), 리더 선출(액티브 컨트롤러 = 파티션 배치 담당). 주키퍼나 etcd 사용.</li>
+  </ul>
+
+  <h2>3단계 · 상세 설계</h2>
+  <p>높은 대역폭을 위한 세 가지 원칙:</p>
+  <ol>
+    <li><strong>디스크 순차 접근</strong>: 회전식 디스크도 순차 쓰기는 매우 빠르고, OS 페이지 캐시도 적극 활용.</li>
+    <li><strong>메시지 구조 불변</strong>: 생산자 → 큐 → 소비자로 갈 때 메시지 형식을 바꾸지 않아 불필요한 복사·변환을 없앰.</li>
+    <li><strong>일괄 처리 우선</strong>: 네트워크 왕복과 디스크 쓰기 비용을 여러 메시지로 분산.</li>
+  </ol>
+
+  <h3>데이터 저장소 — 왜 WAL인가</h3>
+  <p>트래픽 특성: 읽기·쓰기 모두 빈번, 갱신·삭제 없음(보관 기간 지나면 통째로 삭제), 순차 읽기·쓰기 위주.</p>
+  <div class="tw"><table>
+    <tr><th>선택지</th><th>평가</th></tr>
+    <tr><td>DB (관계형/NoSQL)</td><td>읽기·쓰기 모두 대규모로 빈번한 패턴에 맞추기 어려움 → 병목</td></tr>
+    <tr><td><strong>쓰기 우선 로그(WAL)</strong></td><td>추가(append)만 하는 파일. 순차 쓰기에 최적 → <strong>채택</strong></td></tr>
+  </table></div>
+  <ul>
+    <li>파일이 무한히 커지지 않도록 <strong>세그먼트</strong>로 분할. 새 메시지는 활성 세그먼트에만 추가, 가득 차면 새 세그먼트 생성.</li>
+    <li>이전 세그먼트는 읽기 전용. 보관 기간이 지나면 세그먼트 단위로 삭제.</li>
+    <li>파티션별 폴더 아래에 세그먼트 파일이 쌓이는 구조.</li>
+  </ul>
+<div class="ex"><div class="ex-t">예시로 보면 · 카톡 대화방</div><p>새 메시지는 항상 맨 아래에 붙기만 하고, 중간 메시지를 고치지 않는다. 디스크도 끝에만 붙이면 헤드가 왔다갔다 하지 않아 빠르다.</p><p>다만 파일 하나가 끝없이 커지면 오래된 걸 지우기 어려우니 예를 들어 1GB마다 파일을 끊는다(세그먼트). 보관 기간이 2주면 2주 지난 세그먼트 파일을 <strong>통째로 삭제</strong>하면 끝. 행 단위 DELETE가 필요 없다.</p></div>
+
+  <h3>메시지 자료 구조</h3>
+  <div class="tw"><table>
+    <tr><th>필드</th><th>설명</th></tr>
+    <tr><td><code>key</code></td><td>파티션 결정용(없으면 무작위). <code>hash(key) % numPartitions</code></td></tr>
+    <tr><td><code>value</code></td><td>페이로드</td></tr>
+    <tr><td><code>topic</code>, <code>partition</code></td><td>소속 토픽·파티션</td></tr>
+    <tr><td><code>offset</code></td><td>파티션 내 위치. (topic, partition, offset)으로 메시지 식별</td></tr>
+    <tr><td><code>timestamp</code>, <code>size</code>, <code>crc</code></td><td>저장 시각, 크기, 무결성 검증용 체크섬</td></tr>
+  </table></div>
+  <p>옵션 필드로 태그(필터링용) 등을 추가할 수 있다.</p>
+
+  <h3>일괄 처리와 트레이드오프</h3>
+  <p>배치를 크게 하면 대역폭이 오르지만 지연이 늘어난다. 지연이 중요한 서비스는 배치를 작게, 대역폭이 중요하면 크게 + 파티션 수를 늘려 보완한다.</p>
+
+  <h3>생산자 흐름</h3>
+  <ul>
+    <li>어느 브로커가 파티션 리더인지 알아야 한다. 별도 라우팅 계층을 두면 홉이 늘어나므로 <strong>라우팅 로직을 생산자 클라이언트 라이브러리에 내장</strong>.</li>
+    <li>라이브러리 안에 <strong>버퍼</strong>를 두어 메시지를 모아 일괄 전송 → 홉 감소, 대역폭 증가.</li>
+    <li>메시지는 파티션의 <strong>리더 레플리카</strong>로 전송되고, 팔로어가 리더에서 복제.</li>
+  </ul>
+
+  <h3>소비자 흐름 — 푸시 vs 풀</h3>
+  <div class="tw"><table>
+    <tr><th></th><th>푸시</th><th>풀 (채택)</th></tr>
+    <tr><td>장점</td><td>낮은 지연</td><td>소비 속도를 소비자가 결정, 소비자가 느려도 큐가 대신 버팀. 일괄 처리에 적합</td></tr>
+    <tr><td>단점</td><td>생산 속도가 소비 속도를 넘으면 소비자 과부하</td><td>메시지가 없으면 헛도는 요청 → 롱 폴링으로 완화</td></tr>
+  </table></div>
+
+  <h3>소비자 재조정 (rebalancing)</h3>
+  <ul>
+    <li>그룹마다 <strong>코디네이터</strong> 역할 브로커가 있고, 소비자는 하트비트를 보냄.</li>
+    <li>소비자 합류·이탈·장애(하트비트 끊김) 시 코디네이터가 재조정을 시작.</li>
+    <li>그룹 내 <strong>리더 소비자</strong>가 파티션 배치 계획을 만들어 코디네이터에 전달 → 모든 소비자에게 공유.</li>
+  </ul>
+<div class="ex"><div class="ex-t">예시로 보면 · 소비자 2번이 죽었을 때</div><ul><li>소비자 1·2·3이 파티션 0·1·2를 하나씩 맡고 있음</li><li>코디네이터가 2번의 하트비트가 끊긴 걸 감지하고 재조정 시작</li><li>리더 소비자가 "1번이 파티션 0·1, 3번이 파티션 2" 같은 새 배치안을 만들어 코디네이터에 전달, 코디네이터가 모두에게 공유</li><li>1번은 상태 저장소에 기록된 파티션 1의 마지막 오프셋부터 이어서 읽음</li></ul></div>
+
+  <h3>상태 저장소 · 메타데이터 저장소</h3>
+  <ul>
+    <li><strong>상태 저장소</strong>: 파티션-소비자 대응 관계, 파티션별 마지막으로 가져간 오프셋. 읽기·쓰기가 빈번하지만 양이 적고, 갱신은 잦고 삭제는 드묾, 무작위 접근, 일관성 중요 → 주키퍼 같은 키-값 저장소가 적합.</li>
+    <li><strong>메타데이터 저장소</strong>: 토픽 설정·속성(파티션 수, 보관 기간, 레플리카 분산). 자주 바뀌지 않고 양이 적으며 일관성 중요 → 주키퍼.</li>
+    <li>결과적으로 <strong>주키퍼 하나가 메타데이터·상태 저장소 + 조정 서비스</strong>를 모두 맡고, 브로커는 메시지 데이터만 관리하는 단순한 구조가 된다.</li>
+  </ul>
+
+  <h3>복제와 ISR</h3>
+  <ul>
+    <li>파티션마다 여러 레플리카를 서로 다른 브로커에 두고, 리더가 쓰기를 받고 팔로어가 복제한다. <strong>레플리카 분산 계획</strong>은 조정 서비스가 선출한 브로커가 만든다.</li>
+    <li><strong>ISR(In-Sync Replicas)</strong>: 리더와 동기화된 레플리카 집합. 리더보다 설정값 이상 뒤처지면 ISR에서 빠진다. 리더는 항상 ISR에 포함.</li>
+  </ul>
+  <div class="tw"><table>
+    <tr><th>ACK 설정</th><th>동작</th><th>특성</th></tr>
+    <tr><td><code>ACK=all</code></td><td>ISR 전체가 받아야 응답</td><td>가장 강한 지속성, 지연 가장 큼</td></tr>
+    <tr><td><code>ACK=1</code></td><td>리더가 저장하면 응답</td><td>리더 장애 시 유실 가능, 지연 개선</td></tr>
+    <tr><td><code>ACK=0</code></td><td>응답을 기다리지 않음, 재시도 없음</td><td>최저 지연, 유실 감수 (지표 수집 등)</td></tr>
+  </table></div>
+  <p>소비자는 <strong>리더에서만 읽는다</strong>: 설계·운영이 단순하고, 한 파티션은 그룹 내 한 소비자만 읽으니 리더 연결 수가 적으며, 인기 파티션이 아니면 부하도 크지 않기 때문.</p>
+<div class="ex"><div class="ex-t">예시로 보면 · 리더 A, 팔로어 B·C</div><ul><li><code>ACK=all</code>: A·B·C 모두 저장해야 "OK". A가 바로 죽어도 B나 C에 있으니 유실 없음. 가장 느림.</li><li><code>ACK=1</code>: A만 저장하면 "OK". B·C가 복제하기 전에 A가 죽으면 그 메시지는 사라짐.</li><li><code>ACK=0</code>: 보내고 끝. CPU 사용률 같은 지표처럼 한두 개 빠져도 되는 데이터용.</li></ul><p>ISR은 "B가 네트워크 문제로 한참 뒤처지면 all에서 B는 기다리지 말자"는 장치다. 뒤처진 레플리카를 ISR에서 빼서 느린 한 대 때문에 전체가 멈추지 않게 한다.</p></div>
+
+  <h3>규모 확장성</h3>
+
+  <div class="tw"><table>
+    <tr><th>대상</th><th>방법</th></tr>
+    <tr><td>생산자</td><td>그룹 조정이 필요 없어 인스턴스를 그냥 추가·삭제</td></tr>
+    <tr><td>소비자</td><td>소비자 그룹 재조정으로 처리</td></tr>
+    <tr><td>브로커</td><td>장애 시 컨트롤러가 사라진 레플리카를 다른 브로커에 재배치. 레플리카 수는 최소 개수 이상 유지, 같은 파티션 레플리카는 한 노드에 두지 않음. 브로커 추가 시엔 새 브로커에 레플리카를 먼저 복제한 뒤 기존 것을 제거(일시적으로 레플리카 수 초과 허용)</td></tr>
+    <tr><td>파티션</td><td>늘릴 때: 기존 데이터는 옮기지 않고 새 메시지만 새 파티션에도 저장. 줄일 때: 해당 파티션은 새 메시지를 받지 않고, 보관 기간이 지난 뒤 삭제(그전까지 소비자는 읽을 수 있음)</td></tr>
+  </table></div>
+
+  <div class="ex"><div class="ex-t">예시로 보면 · 파티션 3개 → 4개</div><p>키 계산이 <code>hash(key) % 4</code>로 바뀌니 같은 주문자라도 새 메시지는 다른 파티션으로 갈 수 있다. 기존 데이터를 재배치하지 않는 대신, 소비자는 옛 파티션의 남은 메시지와 새 파티션 메시지를 모두 읽는다.</p><p>수 TB를 옮기는 것보다 훨씬 싸지만, <strong>그 시점에는 키 단위 순서 보장이 흔들릴 수 있다</strong>는 점을 면접에서 같이 언급하면 좋다.</p></div>
+
+  <h3>메시지 전달 방식</h3>
+  <div class="tw"><table>
+    <tr><th>방식</th><th>구현</th><th>적합한 곳</th></tr>
+    <tr><td>최대 한 번</td><td>생산자 ACK 기다리지 않음(ACK=0), 소비자는 처리 전에 오프셋 먼저 갱신</td><td>지표 모니터링처럼 일부 유실 허용</td></tr>
+    <tr><td>최소 한 번</td><td>ACK=1 또는 all + 재시도, 소비자는 처리 완료 후 오프셋 커밋 → 중복 가능</td><td>중복 제거가 가능하거나 멱등 처리 가능한 대부분의 경우</td></tr>
+    <tr><td>정확히 한 번</td><td>구현 복잡, 성능 비용 큼</td><td>결제·회계 등 중복이 치명적인 곳</td></tr>
+  </table></div>
+
+  <div class="ex"><div class="ex-t">예시로 보면 · 오프셋을 언제 커밋하느냐</div><p>소비자가 메시지 100번을 가져와 포인트 적립을 처리한다.</p><ul><li><strong>최대 한 번</strong>: 오프셋을 먼저 101로 커밋 → 적립. 적립 도중 죽으면 재시작 후 101번부터 읽으니 100번은 적립 안 됨(유실).</li><li><strong>최소 한 번</strong>: 적립 → 오프셋 커밋. 커밋 직전에 죽으면 100번을 또 읽어 두 번 적립(중복). 그래서 "주문번호로 이미 적립했는지 확인" 같은 멱등 처리를 붙인다.</li><li><strong>정확히 한 번</strong>: 처리와 커밋을 트랜잭션처럼 묶어야 해서 복잡하고 느림. 결제처럼 중복이 절대 안 되는 곳에만.</li></ul></div>
+
+  <h3>고급 기능</h3>
+  <ul>
+    <li><strong>메시지 필터링</strong>: 소비자가 전부 받아 거르면 대역폭 낭비, 토픽을 쪼개면 저장 중복. 메타데이터에 <strong>태그</strong>를 달고 브로커가 태그 기준으로 걸러 보내는 방식. 페이로드를 복호화·역직렬화해야 하는 필터는 브로커에 두지 않음.</li>
+    <li><strong>지연·예약 전송</strong>: 메시지를 바로 토픽에 넣지 않고 임시 저장소에 두었다가 시간이 되면 토픽으로 옮김. 타이밍 기능은 전용 지연 큐나 <strong>계층적 타이밍 휠</strong>로 구현.</li>
+  </ul>
+
+  <div class="interview"><p><b>면접 포인트</b> — "파티션 = 순서와 병렬성의 단위", "WAL + 세그먼트 = 순차 I/O", "풀 방식 + 소비자 그룹 재조정", "ISR과 ACK로 지연/지속성 트레이드오프 조절" 네 가지를 연결해 설명하면 된다. 추가 논의 거리로는 통신 프로토콜(AMQP, 카프카 프로토콜), 소비 실패 시 재시도(재시도 토픽), 오래된 데이터를 HDFS·객체 저장소로 아카이브하는 방안이 있다.</p></div>
+</section>
+
+<section class="chapter recap" style="--accent:var(--ink);--soft:var(--line)">
+  <h2>두 장 비교해서 한 번에 기억하기</h2>
+  <div class="tw"><table>
+    <tr><th>관점</th><th>3장 구글 맵</th><th>4장 분산 메시지 큐</th></tr>
+    <tr><td>쓰기 폭증 대응</td><td>클라이언트 일괄 전송 + 카산드라</td><td>생산자 버퍼 일괄 전송 + WAL 순차 쓰기</td></tr>
+    <tr><td>분할 단위</td><td>지오해시 기반 타일 (계층형)</td><td>토픽 → 파티션 → 세그먼트</td></tr>
+    <tr><td>미리 계산</td><td>지도 타일, 라우팅 타일, 최단 경로 캐시</td><td>해당 없음 (대신 형식 불변으로 복사 최소화)</td></tr>
+    <tr><td>실시간 경로</td><td>카프카로 위치 스트림 → 교통·ETA 갱신</td><td>시스템 자체가 스트림 인프라</td></tr>
+    <tr><td>핵심 트레이드오프</td><td>정확도 vs 데이터/배터리 사용량</td><td>대역폭 vs 지연, 지속성 vs 지연(ACK)</td></tr>
+  </table></div>
+</section>
+
+</main>
+<footer>개인 학습용 요약 노트. 원문 표현이 아닌 재구성한 내용이며, 세부 수치는 책의 가정값 기준.</footer>
+
+
+
+<!--claude-mermaid-runtime-begin:3477-->
+<style>.mermaid-diagram{margin-block:4px}.mermaid-diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>(function(){
+var CFG={"palettes":{"light":{"surface":"#f4efe4","text":"#42392e","line":"#8a7f6d","border":"#7a6c52","bg":"#fffdf8"},"dark":{"surface":"#262b34","text":"#f2f3f5","line":"#a8adb8","border":"#9aa4b8","bg":"#1f232b"}}};
+if(typeof mermaid==='undefined')return;
+var pres=Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')).filter(function(p){if(p.hasAttribute('data-claude-mermaid-claimed'))return false;p.setAttribute('data-claude-mermaid-claimed','1');return true;});
+if(!pres.length)return;
+var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+var root=document.documentElement;
+var items=pres.map(function(pre){
+var mount=document.createElement('div');mount.className='mermaid-diagram';
+return {pre:pre,mount:mount,src:pre.textContent||''};
+});
+var seq=0;
+var renderGen=0;
+var lastKey='';
+function pageBg(fallback){
+var els=[document.body,document.documentElement];
+for(var i=0;i<els.length;i++){
+var c=els[i]&&getComputedStyle(els[i]).backgroundColor;
+if(c&&c!=='transparent'&&c!=='rgba(0, 0, 0, 0)')return c;
+}
+return fallback;
+}
+function render(){
+var theme=root.getAttribute('data-theme');
+var dark=theme==='dark'||(!!(mq&&mq.matches)&&theme!=='light');
+var pal=dark?CFG.palettes.dark:CFG.palettes.light;
+var bg=pageBg(pal.bg);
+var key=(dark?'d':'l')+'|'+bg;
+if(key===lastKey)return;
+lastKey=key;
+var gen=++renderGen;
+var font=getComputedStyle(document.body).fontFamily||'sans-serif';
+var nat={useMaxWidth:false};
+mermaid.initialize({
+startOnLoad:false,securityLevel:'strict',theme:'base',
+flowchart:nat,sequence:nat,er:nat,state:nat,class:nat,pie:nat,
+gantt:nat,journey:nat,timeline:nat,gitGraph:nat,mindmap:nat,xyChart:nat,
+quadrantChart:nat,sankey:nat,c4:nat,requirement:nat,block:nat,
+packet:nat,kanban:nat,architecture:nat,radar:nat,
+themeVariables:{background:bg,mainBkg:pal.surface,primaryColor:pal.surface,
+primaryTextColor:pal.text,lineColor:pal.line,primaryBorderColor:pal.border,
+nodeBorder:pal.border,clusterBorder:pal.border,edgeLabelBackground:bg,
+clusterBkg:'rgba(127,127,127,0.07)',titleColor:pal.text,
+darkMode:dark,rowOdd:bg,rowEven:'rgba(127,127,127,0.07)',
+attributeBackgroundColorOdd:bg,attributeBackgroundColorEven:'rgba(127,127,127,0.07)',
+fontSize:'16px',fontFamily:font},
+themeCSS:'.node rect, .node circle, .node polygon, .node path, .cluster rect { stroke-width: 2px; }'
+});
+items.forEach(function(it){
+var id='claude-mermaid-'+seq++;
+mermaid.render(id,it.src).then(function(r){
+if(gen!==renderGen)return;
+var prev=it.pre.previousElementSibling;
+if(prev&&prev.className==='mermaid-diagram'&&prev!==it.mount)return;
+it.mount.innerHTML=r.svg;
+if(!it.mount.parentNode)it.pre.parentNode.insertBefore(it.mount,it.pre);
+it.pre.style.display='none';
+},function(){
+var scratch=document.getElementById(id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+scratch=document.getElementById('d'+id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+if(gen!==renderGen)return;
+if(it.mount.parentNode)it.mount.parentNode.removeChild(it.mount);
+it.pre.style.display='';
+});
+});
+}
+render();
+if(mq&&mq.addEventListener)mq.addEventListener('change',render);
+if(typeof MutationObserver!=='undefined')new MutationObserver(render).observe(root,{attributes:true,attributeFilter:['data-theme']});
+})();</script>
+<!--claude-mermaid-runtime-end-->
+</body>
+</html>

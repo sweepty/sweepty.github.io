@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!-- 가상 면접 사례로 배우는 대규모 시스템 설계 기초 2 — 2장 주변 친구 학습 노트 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>주변 친구 — 학습 노트</title>
+<style>
+  :root{
+    --bg:#EDF1EE; --paper:#F8FAF8; --ink:#1D2B3A; --muted:#5B6B78;
+    --grid:#2F7D74; --grid-soft:#CFDDD8; --pin:#D1495B; --pin2:#3A6EA5; --mark:#F2C94C;
+    --font:"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+    --code:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.7;font-size:16px;
+    background-image:linear-gradient(var(--grid-soft) 1px,transparent 1px),linear-gradient(90deg,var(--grid-soft) 1px,transparent 1px);
+    background-size:48px 48px;background-attachment:fixed}
+  main{max-width:780px;margin:0 auto;padding:48px 20px 96px}
+  header.hero{padding:8px 0 28px;border-bottom:2px solid var(--ink);margin-bottom:28px}
+  .book{color:var(--muted);font-size:14px;margin:0 0 6px}
+  h1{font-size:40px;line-height:1.15;margin:0 0 14px;letter-spacing:-.02em;font-weight:800}
+  .summary{font-size:18px;margin:0;max-width:62ch}
+  .kw{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+  .kw span{background:var(--ink);color:var(--paper);padding:3px 10px;border-radius:3px;font-size:14px;font-weight:700}
+  nav.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 36px}
+  nav.toc a{font-size:14px;color:var(--ink);text-decoration:none;padding:4px 10px;border:1px solid var(--ink);border-radius:999px;background:var(--paper)}
+  nav.toc a:hover,nav.toc a:focus-visible{background:var(--ink);color:var(--paper)}
+  section.part{background:var(--paper);border:1px solid #C9D3CF;border-radius:6px;padding:28px 28px 20px;margin:0 0 28px}
+  section.part h2{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
+  section.part h3{font-size:18px;margin:26px 0 6px}
+  .lede{color:var(--muted);margin:0 0 14px}
+  p{margin:8px 0;max-width:70ch}
+  ul,ol{padding-left:22px;margin:8px 0}
+  li{margin:3px 0}
+  code,.mono{font-family:var(--code);font-size:.92em}
+  code{background:#E3EAE7;padding:1px 5px;border-radius:3px}
+  pre{background:#E3EAE7;padding:10px 14px;border-radius:4px;overflow-x:auto;font-family:var(--code);font-size:14px;margin:10px 0}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15px}
+  th,td{border:1px solid #C9D3CF;padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#E3EAE7;font-weight:700}
+  .note{background:#FFF6D6;border-left:4px solid var(--mark);padding:12px 16px;margin:14px 0;border-radius:0 4px 4px 0}
+  .note strong:first-child{display:block;margin-bottom:2px}
+  .warn{background:#FBE9EC;border-left:4px solid var(--pin);padding:12px 16px;margin:14px 0;border-radius:0 4px 4px 0}
+  .warn strong:first-child{display:block;margin-bottom:2px}
+  .ex{border:1px dashed var(--grid);border-radius:4px;padding:12px 16px;margin:14px 0}
+  .ex-title{font-weight:700;color:var(--grid);margin:0 0 4px}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:0 6px;border-radius:3px;margin-left:4px;vertical-align:1px}
+  .tag.sl{background:#DCEFEA;color:var(--grid)}
+  .tag.sf{background:#FBE9EC;color:var(--pin)}
+  .grid9{display:grid;grid-template-columns:repeat(3,auto);gap:4px;width:max-content;margin:10px 0;font-family:var(--code);font-size:14px}
+  .grid9 span{padding:8px 12px;background:#E3EAE7;border-radius:3px;text-align:center}
+  .grid9 span.me{background:var(--ink);color:var(--paper)}
+  .lab{border:2px solid var(--ink);border-radius:6px;padding:14px;margin:16px 0;background:#fff}
+  .lab-head{font-weight:700;margin:0 0 8px}
+  .lab canvas{width:100%;display:block;border-radius:3px;touch-action:none}
+  .controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:10px 0 4px;font-size:14px}
+  .controls input[type=range]{width:160px}
+  button{font:inherit;font-size:14px;padding:4px 12px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:4px;cursor:pointer}
+  button:hover{background:var(--ink);color:var(--paper)}
+  button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+  .readout{font-size:14px;color:var(--muted);margin:4px 0}
+  .log{font-size:14px;margin:8px 0 0;padding:0;list-style:none;border-top:1px solid #C9D3CF}
+  .log li{padding:4px 0;border-bottom:1px solid #E3EAE7;margin:0}
+  .ok{color:var(--grid);font-weight:700}.drop{color:var(--muted);font-weight:700}.off{color:var(--pin);font-weight:700}
+  ol.flow{list-style:none;padding:0;counter-reset:f;margin:12px 0}
+  ol.flow li{counter-increment:f;position:relative;padding:8px 12px 8px 30px;margin:0 0 0 14px;border-left:2px solid var(--grid)}
+  ol.flow li::before{content:counter(f);position:absolute;left:-15px;top:8px;width:28px;height:28px;border-radius:50%;background:var(--grid);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .calc div{border:1px solid #C9D3CF;border-radius:4px;padding:12px 14px;background:#fff}
+  .calc h4{margin:0 0 6px;font-size:15px}
+  .calc .res{font-size:22px;font-weight:800;margin:4px 0 0}
+  .calc .hot{border:2px solid var(--pin)}
+  @media (max-width:640px){
+    h1{font-size:30px} section.part{padding:20px 16px} .calc{grid-template-columns:1fr}
+    th,td{padding:6px}
+  }
+</style>
+
+<main>
+  <header class="hero">
+    <p class="book">가상 면접 사례로 배우는 대규모 시스템 설계 기초 2 · 2장</p>
+    <h1>주변 친구</h1>
+    <p class="summary">1장의 근접성 서비스는 사업장이 거의 안 움직였지만, 이번엔 <b>친구가 계속 움직인다.</b> 그래서 “검색”이 아니라 “실시간 전달” 문제가 되고, 그 중심에 웹소켓과 레디스 펍/섭이 있다.</p>
+    <div class="kw"><span>레디스 펍/섭</span><span>유상태 서버</span></div>
+  </header>
+
+  <nav class="toc" aria-label="목차">
+    <a href="#req">요구사항</a><a href="#arch">구조</a><a href="#cache">위치 캐시</a>
+    <a href="#update">위치 갱신 흐름</a><a href="#init">초기화</a><a href="#ws">웹소켓 확장</a>
+    <a href="#pubsub">펍/섭 규모</a><a href="#ring">분산 클러스터</a><a href="#resize">클러스터 확장</a>
+    <a href="#random">주변 임의 사용자</a>
+  </nav>
+
+  <!-- 요구사항 -->
+  <section class="part" id="req">
+    <h2>요구사항과 숫자</h2>
+    <ul>
+      <li>반경 5마일(약 8km) 안의 친구를 보여준다. 거리는 직선거리.</li>
+      <li>위치는 <b>30초마다</b> 갱신. 사람이 걷는 속도로는 30초 동안 크게 안 움직인다.</li>
+      <li><b>10분 넘게</b> 갱신이 없는 친구는 목록에서 사라진다.</li>
+      <li>위치 이력은 따로 저장(머신러닝 등에 활용).</li>
+    </ul>
+    <table>
+      <tr><th>항목</th><th>값 (책의 가정)</th></tr>
+      <tr><td>기능 사용자(DAU)</td><td>1억 명</td></tr>
+      <tr><td>동시 접속자</td><td>DAU의 10% = 1,000만 명</td></tr>
+      <tr><td>평균 친구 수</td><td>400명</td></tr>
+      <tr><td>위치 갱신 QPS</td><td>1,000만 ÷ 30초 ≈ <b>약 33만 4천</b></td></tr>
+    </table>
+    <div class="note"><strong>감 잡기</strong>초당 33만 건의 위치 갱신이 들어오고, 각 갱신은 그 사람의 “온라인 친구들”에게 퍼져야 한다. 이 팬아웃이 이 장의 진짜 부하다.</div>
+  </section>
+
+  <!-- 구조 -->
+  <section class="part" id="arch">
+    <h2>전체 구조</h2>
+    <table>
+      <tr><th>컴포넌트</th><th>역할</th></tr>
+      <tr><td>API 서버 <span class="tag sl">무상태</span></td><td>친구 추가/삭제, 프로필 수정 같은 일반 요청. 오토스케일 쉬움.</td></tr>
+      <tr><td>웹소켓 서버 <span class="tag sf">유상태</span></td><td>클라이언트와 연결을 유지하며 위치 갱신을 주고받는다.</td></tr>
+      <tr><td>위치 캐시 (레디스)</td><td>활성 사용자의 <b>가장 최근 위치</b>만 보관. TTL로 비활성 사용자 자동 제거.</td></tr>
+      <tr><td>사용자 DB</td><td>프로필, 친구 관계.</td></tr>
+      <tr><td>위치 이력 DB (카산드라 등)</td><td>쓰기가 매우 많으므로 쓰기에 강한 DB. 사용자 ID로 샤딩.</td></tr>
+      <tr><td>레디스 펍/섭</td><td>가벼운 메시지 버스. <b>사용자 1명 = 채널 1개.</b> 친구들이 그 채널을 구독.</td></tr>
+    </table>
+    <div class="ex">
+      <p class="ex-title">펍/섭을 한 문장으로</p>
+      <p>민지가 움직이면 <code>민지 채널</code>에 새 위치를 발행한다. 민지 채널을 구독하고 있는 건 민지 친구들의 웹소켓 연결 핸들러. 레디스는 받은 메시지를 구독자에게 뿌리고 끝 — 메시지를 저장하지 않는다.</p>
+    </div>
+  </section>
+
+  <!-- 위치 캐시 -->
+  <section class="part" id="cache">
+    <h2>위치 정보 캐시</h2>
+    <pre>key:   user:1024
+value: { lat: 37.4979, lng: 127.0276, timestamp: 1758000000 }
+TTL:   10분 (갱신될 때마다 연장)</pre>
+    <h3>DB 대신 레디스를 쓰는 이유</h3>
+    <ul>
+      <li>필요한 건 사용자당 <b>현재 위치 하나</b>뿐. 이력은 위치 이력 DB가 따로 맡는다.</li>
+      <li>읽기·쓰기가 매우 빠르다 — 초당 33만 건 갱신을 받아야 한다.</li>
+      <li>TTL 지원 — 10분간 갱신 없으면 키가 사라지고, 그게 곧 “비활성” 판정이 된다.</li>
+    </ul>
+    <h3>영속성이 필요 없다</h3>
+    <p>레디스 인스턴스가 죽으면 빈 인스턴스로 바꿔 끼우면 된다. 30초마다 갱신이 들어오니 캐시는 금방 다시 채워진다. 그 사이 갱신 주기 한두 번 동안 친구 위치 변경을 놓칠 수 있지만, 수용 가능한 트레이드오프다.</p>
+
+    <h3>캐시 규모</h3>
+    <p>동시 접속 1,000만 명 × 사용자당 약 100바이트면 메모리는 서버 한 대로 충분하다. 문제는 <b>초당 33만 건 쓰기</b>라 서버 한 대로는 버겁다는 것. 그래서 사용자 ID 기준으로 샤딩하고, 샤드마다 대기(standby) 복제본을 둔다.</p>
+  </section>
+
+  <!-- 위치 갱신 -->
+  <section class="part" id="update">
+    <h2>위치 갱신 흐름</h2>
+    <ol class="flow">
+      <li>클라이언트가 위치를 보내면 로드밸런서가 이미 연결된 웹소켓 서버로 넘긴다.</li>
+      <li>웹소켓 서버가 위치 이력 DB에 저장한다.</li>
+      <li>위치 캐시를 갱신하고(TTL 연장), <b>연결 핸들러 변수에도 내 위치를 보관</b>한다. 나중에 거리 계산에 쓴다.</li>
+      <li>내 채널에 새 위치를 발행한다.</li>
+      <li>레디스 펍/섭이 내 채널 구독자 전원(= 온라인 친구들의 연결 핸들러)에게 전달한다.</li>
+      <li>각 구독자 핸들러가 “새 위치 ↔ 자기가 보관한 내 친구 위치” 거리를 계산한다.</li>
+      <li>반경 안이면 친구 클라이언트로 전송, 밖이면 버린다.</li>
+    </ol>
+
+    <div class="lab">
+      <p class="lab-head">위치 갱신 따라가 보기</p>
+      <canvas id="fnCanvas" width="720" height="440" aria-label="위치 갱신 전파 시각화"></canvas>
+      <div class="controls">
+        <label>검색 반경 <input type="range" id="fnR" min="3" max="16" value="8"> <span id="fnRVal" class="mono">8</span>km</label>
+        <button id="fnReset">처음 배치로</button>
+      </div>
+      <p class="readout">사람을 누르면 그 사람이 위치를 발행한다. 끌어서 옮기면 옮긴 위치로 다시 발행한다. 빈 동그라미는 오프라인 — 웹소켓 연결이 없으니 구독자도 아니다. 거리는 대칭이라 발행자 기준 원으로 표시했다.</p>
+      <ul class="log" id="fnLog"></ul>
+    </div>
+  </section>
+
+  <!-- 초기화 -->
+  <section class="part" id="init">
+    <h2>앱을 켰을 때 (클라이언트 초기화)</h2>
+    <p class="lede">웹소켓 연결을 맺고 첫 위치를 보내면 서버가 이 일을 한다.</p>
+    <ol class="flow">
+      <li>위치 캐시에 내 위치 저장, 연결 핸들러 변수에도 저장.</li>
+      <li>사용자 DB에서 내 친구 목록(평균 400명)을 가져온다.</li>
+      <li>위치 캐시에 친구들 위치를 한 번에(batch) 요청한다. TTL이 지난 비활성 친구는 결과에 없다.</li>
+      <li>받은 위치마다 거리를 계산해 반경 안인 친구만 클라이언트에 보낸다.</li>
+      <li>친구 <b>전원</b>의 채널을 구독한다 — 온라인이든 아니든. 채널은 싸고, 발행이 없는 채널은 CPU를 쓰지 않는다.</li>
+      <li>내 채널에 현재 위치를 발행한다.</li>
+    </ol>
+    <p>친구 추가/삭제 시에는 클라이언트가 웹소켓 서버에 알리고, 서버가 그 친구 채널을 구독하거나 해지한다.</p>
+  </section>
+
+  <!-- 웹소켓 확장 -->
+  <section class="part" id="ws">
+    <h2>웹소켓 서버 확장</h2>
+    <div class="warn"><strong>유상태 서버라 제거할 때 조심</strong>서버를 그냥 내리면 붙어 있던 연결이 한꺼번에 끊긴다.</div>
+    <ol class="flow">
+      <li>로드밸런서에서 해당 서버를 <b>드레인(draining)</b> 상태로 표시 — 새 연결을 보내지 않는다.</li>
+      <li>기존 연결이 모두 닫힐 때까지(또는 충분히 오래) 기다린다.</li>
+      <li>그 뒤에 서버를 제거한다. 새 버전 배포도 같은 방식.</li>
+    </ol>
+    <div class="ex">
+      <p class="ex-title">비유</p>
+      <p>문 닫을 식당이 “신규 손님 안 받음” 팻말을 걸고, 이미 앉은 손님이 다 먹고 나갈 때까지 기다리는 것.</p>
+    </div>
+  </section>
+
+  <!-- 펍섭 규모 -->
+  <section class="part" id="pubsub">
+    <h2>레디스 펍/섭은 몇 대가 필요한가</h2>
+    <div class="calc">
+      <div>
+        <h4>메모리</h4>
+        <p>채널 1억 개 × 채널당 구독자 약 100명 × 구독자당 포인터 약 20바이트</p>
+        <p class="res">≈ 200GB → 서버 2대</p>
+      </div>
+      <div class="hot">
+        <h4>CPU</h4>
+        <p>초당 갱신 33.4만 × 온라인 친구 40명(400명의 10%) = 초당 1,400만 건 전달. 서버 1대가 초당 약 10만 건 처리한다고 보면</p>
+        <p class="res">≈ 140대</p>
+      </div>
+    </div>
+    <div class="note"><strong>결론</strong>병목은 메모리가 아니라 <b>CPU</b>다. 서버 한두 대로는 안 되고, 분산 클러스터가 필요하다.</div>
+  </section>
+
+  <!-- 분산 클러스터 -->
+  <section class="part" id="ring">
+    <h2>분산 레디스 펍/섭 클러스터</h2>
+    <p class="lede">채널을 여러 서버에 나눈다. 기준은 <b>발행자의 사용자 ID</b>. 어느 채널이 어느 서버에 있는지는 안정 해시(consistent hashing)로 정한다.</p>
+    <h3>서비스 탐색 — 주키퍼(ZooKeeper), etcd</h3>
+    <p>“지금 살아있는 펍/섭 서버 목록”과 해시 링 설정을 한곳에 두고, 바뀌면 구독자(웹소켓 서버)에게 알려주는 컴포넌트.</p>
+    <pre>/config/pub_sub_ring  →  ["p_1", "p_2", "p_3", "p_4"]</pre>
+    <ol class="flow">
+      <li>웹소켓 서버들은 이 해시 링을 구독하고 메모리에 캐시한다.</li>
+      <li>민지가 위치를 발행하려 하면, 해시 링에서 <code>민지 채널</code> 담당 서버(예: <code>p_3</code>)를 찾는다.</li>
+      <li><code>p_3</code>에 발행한다. 구독할 때도 같은 방식으로 서버를 찾는다.</li>
+    </ol>
+
+    <div class="lab">
+      <p class="lab-head">해시 링에 서버를 넣고 빼 보기</p>
+      <canvas id="hrCanvas" width="720" height="420" aria-label="안정 해시 링 시각화"></canvas>
+      <div class="controls">
+        <button id="hrAdd">서버 1대 추가</button>
+        <button id="hrDel">서버 1대 제거</button>
+        <button id="hrClear">표시 지우기</button>
+      </div>
+      <p class="readout" id="hrStats"></p>
+      <p class="readout">바깥 점 = 채널(사용자 240명), 네모 = 펍/섭 서버. 채널은 시계 방향으로 처음 만나는 서버에 속한다. 테두리가 굵은 점이 방금 서버가 바뀐 채널이다.</p>
+    </div>
+  </section>
+
+  <!-- 클러스터 확장 -->
+  <section class="part" id="resize">
+    <h2>펍/섭 클러스터 규모 확장</h2>
+    <p>펍/섭은 메시지를 저장하지 않으니 무상태처럼 보이지만, <b>“누가 어떤 채널을 구독 중인가”라는 상태</b>를 들고 있다. 그래서 <b>유상태 클러스터로 취급</b>한다.</p>
+    <div class="warn"><strong>서버 수를 바꾸면 벌어지는 일</strong>해시 링이 바뀌어 일부 채널이 다른 서버로 옮겨진다 → 그 채널의 구독자 전원이 새 서버로 재구독해야 한다 → 재구독 요청이 한꺼번에 몰리고, 그동안 일부 위치 갱신을 놓친다.</div>
+    <ul>
+      <li>처음부터 여유 있게 서버를 잡아 둔다(과잉 프로비저닝). 크기 조정 자체를 드물게.</li>
+      <li>해야 한다면 <b>시스템 부하가 가장 낮은 시간</b>에, 계획을 세워서.</li>
+      <li>진행 중에는 웹소켓 클러스터 CPU 급증 등을 대시보드로 지켜본다.</li>
+    </ul>
+    <h3>장애 서버 교체는 상대적으로 덜 위험</h3>
+    <p>죽은 서버 자리를 대기 서버로 바꾸면 링 구조는 그대로라, 그 서버의 채널 구독자만 재구독하면 된다. 링 크기를 바꾸는 것보다 영향 범위가 훨씬 작다.</p>
+    <h3>친구가 아주 많은 사용자</h3>
+    <p>친구 수에 상한이 있고(예: 페이스북 5,000명) 친구 관계는 양방향이라, 팔로워 수백만인 셀럽 문제와는 다르다. 그런 사용자의 구독자들은 여러 웹소켓 서버에 흩어져 있어 부하도 분산된다.</p>
+  </section>
+
+  <!-- 주변 임의 사용자 -->
+  <section class="part" id="random">
+    <h2>추가 — 친구가 아닌 주변 사용자도 보여주기</h2>
+    <p class="lede">친구 채널 대신 <b>지오해시 격자별 채널</b>을 만든다. 1장의 지오해시가 여기서 다시 나온다.</p>
+    <ol class="flow">
+      <li>사용자는 자기 위치의 지오해시 채널을 구독한다.</li>
+      <li>격자 경계 문제 때문에 주변 8격자 채널까지, 총 9개를 구독한다.</li>
+      <li>위치가 바뀌면 자기가 속한 지오해시 채널에 발행 → 그 격자와 이웃 격자에 있는 사람들이 받는다.</li>
+    </ol>
+    <div class="ex">
+      <p class="ex-title">예시 — 강남역에 있는 사용자가 구독하는 채널</p>
+      <div class="grid9">
+        <span>geo:wydm67</span><span>geo:wydm6e</span><span>geo:wydm6g</span>
+        <span>geo:wydm66</span><span class="me">geo:wydm6d</span><span>geo:wydm6f</span>
+        <span>geo:wydm63</span><span>geo:wydm69</span><span>geo:wydm6c</span>
+      </div>
+      <p>역삼역 쪽(<code>wydm6f</code>)으로 걸어가 격자를 넘으면, 구독 목록도 <code>wydm6f</code> 중심의 9개로 바꿔야 한다.</p>
+    </div>
+
+    <h3>대안 — 얼랭(Erlang)</h3>
+    <p>레디스 펍/섭 대신 얼랭/엘릭서로 구현할 수도 있다. 얼랭 프로세스는 수백 바이트 수준으로 가벼워서, 사용자 한 명을 프로세스 하나로 두고 서버 한 대에 수백만 개를 띄울 수 있다. 다만 얼랭 개발자를 구하기 어렵다는 현실적 제약이 있다.</p>
+  </section>
+</main>
+
+<script>
+(() => {
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function prep(cv, ratio){
+    const dpr = window.devicePixelRatio || 1;
+    const w = cv.clientWidth, h = Math.round(w * ratio);
+    cv.style.height = h + 'px';
+    cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+    const ctx = cv.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {ctx, w, h};
+  }
+
+  /* ---------- 위치 갱신 팬아웃 ---------- */
+  const MAPW = 40, MAPH = 26; // km
+  const initUsers = () => ([
+    {id:'me', name:'나', x:20, y:13, on:true},
+    {id:'mj', name:'민지', x:24, y:10, on:true},
+    {id:'jh', name:'준호', x:31, y:19, on:true},
+    {id:'sy', name:'서연', x:16, y:17, on:false},
+    {id:'to', name:'태오', x:8,  y:6,  on:true},
+    {id:'hr', name:'하린', x:29, y:4,  on:true},
+  ]);
+  const edges = [['me','mj'],['me','jh'],['me','sy'],['me','to'],['mj','hr'],['jh','to'],['mj','sy']];
+  let users = initUsers(), pub = null, anim = 1, drag = null, fnGeom = null;
+  const U = id => users.find(u => u.id === id);
+  const friendsOf = id => edges.filter(e => e.includes(id)).map(e => U(e[0]===id ? e[1] : e[0]));
+  const dist = (a,b) => Math.hypot(a.x-b.x, a.y-b.y);
+  const fnCv = document.getElementById('fnCanvas');
+  const fnR = document.getElementById('fnR');
+
+  function drawFN(){
+    const ratio = innerWidth < 640 ? 0.8 : 440/720;
+    const {ctx, w, h} = prep(fnCv, ratio);
+    const s = Math.min(w/MAPW, h/MAPH), ox = (w-MAPW*s)/2, oy = (h-MAPH*s)/2;
+    fnGeom = {s, ox, oy};
+    const X = x => ox + x*s, Y = y => oy + y*s;
+    const R = +fnR.value;
+    document.getElementById('fnRVal').textContent = R;
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#F4F7F5'; ctx.fillRect(ox,oy,MAPW*s,MAPH*s);
+    ctx.strokeStyle = '#E0E8E4'; ctx.lineWidth = 1;
+    for(let i=0;i<=MAPW;i+=4){ ctx.beginPath(); ctx.moveTo(X(i),oy); ctx.lineTo(X(i),oy+MAPH*s); ctx.stroke(); }
+    for(let j=0;j<=MAPH;j+=4){ ctx.beginPath(); ctx.moveTo(ox,Y(j)); ctx.lineTo(ox+MAPW*s,Y(j)); ctx.stroke(); }
+
+    // 친구 관계(기본)
+    ctx.setLineDash([2,4]); ctx.strokeStyle = '#B8C6C0'; ctx.lineWidth = 1;
+    edges.forEach(([a,b]) => { const A=U(a),B=U(b); ctx.beginPath(); ctx.moveTo(X(A.x),Y(A.y)); ctx.lineTo(X(B.x),Y(B.y)); ctx.stroke(); });
+    ctx.setLineDash([]);
+
+    if(pub){
+      ctx.fillStyle = 'rgba(47,125,116,.08)'; ctx.strokeStyle = css('--grid'); ctx.setLineDash([6,5]); ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(X(pub.x),Y(pub.y),R*s,0,Math.PI*2); ctx.fill(); ctx.stroke(); ctx.setLineDash([]);
+      friendsOf(pub.id).forEach(f => {
+        const d = dist(pub,f), ok = f.on && d <= R;
+        ctx.strokeStyle = !f.on ? css('--pin') : ok ? css('--grid') : '#9AA8A2';
+        ctx.lineWidth = ok ? 3 : 1.5;
+        if(!ok) ctx.setLineDash([5,4]);
+        ctx.beginPath(); ctx.moveTo(X(pub.x),Y(pub.y)); ctx.lineTo(X(f.x),Y(f.y)); ctx.stroke(); ctx.setLineDash([]);
+        const mx = (X(pub.x)+X(f.x))/2, my = (Y(pub.y)+Y(f.y))/2;
+        ctx.font = '12px ' + css('--font'); ctx.fillStyle = ctx.strokeStyle;
+        ctx.fillText(f.on ? `${d.toFixed(1)}km` : '구독자 없음', mx+4, my-4);
+        if(f.on){
+          const t = Math.min(1, anim), px = X(pub.x)+(X(f.x)-X(pub.x))*t, py = Y(pub.y)+(Y(f.y)-Y(pub.y))*t;
+          if(anim < 1 || ok){
+            ctx.fillStyle = anim < 1 ? css('--mark') : css('--grid');
+            ctx.beginPath(); ctx.arc(anim<1?px:X(f.x), anim<1?py:Y(f.y), anim<1?6:0, 0, Math.PI*2); ctx.fill();
+          }
+        }
+      });
+    }
+
+    users.forEach(u => {
+      const x = X(u.x), y = Y(u.y), isPub = pub && pub.id === u.id;
+      ctx.beginPath(); ctx.arc(x,y,isPub?13:10,0,Math.PI*2);
+      if(u.on){ ctx.fillStyle = isPub ? css('--pin') : css('--ink'); ctx.fill(); }
+      else { ctx.fillStyle = '#fff'; ctx.fill(); ctx.strokeStyle = '#9AA8A2'; ctx.lineWidth = 2; ctx.stroke(); }
+      ctx.font = '700 13px ' + css('--font'); ctx.fillStyle = u.on ? css('--ink') : '#7A8A84';
+      ctx.fillText(u.name + (u.on ? '' : ' (오프라인)'), x+15, y+5);
+    });
+  }
+
+  function publish(u){
+    pub = u;
+    const R = +fnR.value, log = [];
+    log.push(`<b>${u.name}</b> 위치 발행 → 위치 이력 DB 저장, 위치 캐시 갱신(TTL 연장), <code>${u.name} 채널</code>에 발행`);
+    friendsOf(u.id).forEach(f => {
+      const d = dist(u,f);
+      if(!f.on) log.push(`${f.name}: <span class="off">오프라인</span> — 연결 핸들러가 없어 받는 사람 없음`);
+      else if(d <= R) log.push(`${f.name}의 핸들러: 거리 ${d.toFixed(1)}km ≤ ${R}km → <span class="ok">클라이언트로 전송</span>`);
+      else log.push(`${f.name}의 핸들러: 거리 ${d.toFixed(1)}km > ${R}km → <span class="drop">버림</span>`);
+    });
+    const others = users.filter(x => x.id !== u.id && !friendsOf(u.id).includes(x)).map(x => x.name);
+    if(others.length) log.push(`${others.join(', ')}: ${u.name}와 친구가 아니라 채널을 구독하지 않음`);
+    document.getElementById('fnLog').innerHTML = log.map(l => `<li>${l}</li>`).join('');
+    if(reduce){ anim = 1; drawFN(); return; }
+    anim = 0; const t0 = performance.now();
+    const step = t => { anim = (t - t0)/650; drawFN(); if(anim < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  const pos = e => { const r = fnCv.getBoundingClientRect(), {s,ox,oy} = fnGeom; return {x:(e.clientX-r.left-ox)/s, y:(e.clientY-r.top-oy)/s}; };
+  const hit = p => users.find(u => Math.hypot(u.x-p.x, u.y-p.y) < 14/fnGeom.s);
+  fnCv.addEventListener('pointerdown', e => {
+    const u = hit(pos(e)); if(!u) return;
+    if(!u.on){ document.getElementById('fnLog').innerHTML = `<li>${u.name}은(는) 오프라인이라 위치를 보낼 수 없다.</li>`; return; }
+    drag = {u, moved:false}; fnCv.setPointerCapture(e.pointerId);
+  });
+  fnCv.addEventListener('pointermove', e => {
+    const p = pos(e);
+    fnCv.style.cursor = hit(p) ? 'pointer' : 'default';
+    if(!drag) return;
+    drag.u.x = Math.max(0.5, Math.min(MAPW-0.5, p.x)); drag.u.y = Math.max(0.5, Math.min(MAPH-0.5, p.y));
+    drag.moved = true; pub = drag.u; anim = 1; drawFN();
+  });
+  fnCv.addEventListener('pointerup', () => { if(drag){ publish(drag.u); drag = null; } });
+  fnR.addEventListener('input', () => { if(pub) publish(pub); else drawFN(); });
+  document.getElementById('fnReset').onclick = () => { users = initUsers(); pub = null; document.getElementById('fnLog').innerHTML=''; drawFN(); };
+
+  /* ---------- 해시 링 ---------- */
+  const fnv = s => { let h = 0x811c9dc5; for(const c of s){ h ^= c.charCodeAt(0); h = Math.imul(h, 0x01000193) >>> 0; } h ^= h >>> 13; h = Math.imul(h, 0x5bd1e995) >>> 0; h ^= h >>> 15; return (h >>> 0) / 4294967296; };
+  const CH = 240, VN = 4;
+  const channels = Array.from({length:CH}, (_,i) => ({i, a: fnv('user:' + (i*7919+13))}));
+  let N = 4, prev = null;
+  const serverPoints = n => { const p=[]; for(let s=0;s<n;s++) for(let v=0;v<VN;v++) p.push({s, a: fnv(`p_${s+1}#${v}`)}); return p.sort((x,y)=>x.a-y.a); };
+  const assign = n => { const p = serverPoints(n); return channels.map(c => (p.find(q => q.a >= c.a) || p[0]).s); };
+  const color = s => `hsl(${(s*137.5)%360} 55% 45%)`;
+  const hrCv = document.getElementById('hrCanvas');
+
+  function drawHR(){
+    const ratio = innerWidth < 640 ? 0.95 : 420/720;
+    const {ctx, w, h} = prep(hrCv, ratio);
+    const cx = w/2, cy = h/2, R = Math.min(w,h)/2 - 34;
+    const cur = assign(N), pts = serverPoints(N);
+    const P = (a, r) => [cx + r*Math.cos(a*2*Math.PI - Math.PI/2), cy + r*Math.sin(a*2*Math.PI - Math.PI/2)];
+    ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle = css('--ink'); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
+    let moved = 0;
+    channels.forEach((c,i) => {
+      const mv = prev && prev[i] !== cur[i]; if(mv) moved++;
+      const [x,y] = P(c.a, R + 14);
+      ctx.fillStyle = color(cur[i]); ctx.beginPath(); ctx.arc(x,y, mv?5:3, 0, Math.PI*2); ctx.fill();
+      if(mv){ ctx.strokeStyle = css('--ink'); ctx.lineWidth = 2; ctx.stroke(); }
+    });
+    pts.forEach(p => {
+      const [x,y] = P(p.a, R);
+      ctx.fillStyle = color(p.s); ctx.fillRect(x-6,y-6,12,12);
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.strokeRect(x-6,y-6,12,12);
+      const [lx,ly] = P(p.a, R - 22);
+      ctx.font = '700 11px ' + css('--code'); ctx.fillStyle = color(p.s); ctx.textAlign = 'center';
+      ctx.fillText(`p_${p.s+1}`, lx, ly+4);
+    });
+    ctx.textAlign = 'center'; ctx.fillStyle = css('--ink'); ctx.font = '800 22px ' + css('--font');
+    ctx.fillText(`서버 ${N}대`, cx, cy+2);
+    ctx.font = '12px ' + css('--font'); ctx.fillStyle = css('--muted');
+    ctx.fillText(`서버당 가상 노드 ${VN}개`, cx, cy+22);
+    ctx.textAlign = 'start';
+    document.getElementById('hrStats').innerHTML = prev
+      ? `서버가 바뀐 채널 <b>${moved} / ${CH}개 (${Math.round(moved/CH*100)}%)</b>. 채널당 구독자를 100명으로 잡으면 재구독 요청 약 <b>${(moved*100).toLocaleString()}건</b>이 한꺼번에 몰린다. 나머지 채널은 그대로다 — 안정 해시 덕분.`
+      : '서버를 추가하거나 제거해서 어떤 채널이 옮겨지는지 확인해 보자.';
+  }
+  document.getElementById('hrAdd').onclick = () => { if(N >= 12) return; prev = assign(N); N++; drawHR(); };
+  document.getElementById('hrDel').onclick = () => { if(N <= 2) return; prev = assign(N); N--; drawHR(); };
+  document.getElementById('hrClear').onclick = () => { prev = null; drawHR(); };
+
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { drawFN(); drawHR(); }, 120); });
+  drawFN(); drawHR(); publish(U('me'));
+})();
+</script>

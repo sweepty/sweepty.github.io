@@ -3,6 +3,8 @@
 <url> <loc>https://sweepty.github.io/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/blog</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://sweepty.github.io/system-design-interview-vol2</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://sweepty.github.io/system-design-interview-vol1</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/optimization-level</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/no-more-storyboard-use-code</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/change-localization</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
@@ -17,7 +19,9 @@
 <url> <loc>https://sweepty.github.io/tags/fastlane</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags/flutter</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags/keyboard</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://sweepty.github.io/tags/study</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags/swift</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://sweepty.github.io/tags/system-design</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags/xcode</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 <url> <loc>https://sweepty.github.io/tags/i-os</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>

@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://sweepty.github.io/sitemap.xml
